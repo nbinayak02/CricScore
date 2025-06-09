@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getHomePage } from "./api/homepage";
-import Card from "./components/card";
+import { getHomePage } from "./api/homepage.js";
+import Card from "./components/card.jsx";
 import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
