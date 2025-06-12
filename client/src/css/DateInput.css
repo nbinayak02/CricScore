@@ -1,0 +1,46 @@
+ .date-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.date-wrapper input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  /* background-color: white; */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+      background: #fffeee;
+}
+
+.date-placeholder {
+width: 100%;
+        height: 2.5rem;
+    border: 1.6px solid #6f6e6e9a;
+    border-radius: 6px;
+    outline: none;
+    padding: 3px 0px 3px 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    color: #aaa;
+    /* font-size: 16px;  */
+     /* pointer-events: none;  */
+    transition: 0.2s ease;
+    z-index: 1;
+    cursor: text;
+        background: #fffeee;
+}
+
+.date-wrapper.filled .date-placeholder {
+  opacity: 0;
+} 
+
+.react-time-picker__inputGroup__input, .react-time-picker__inputGroup__amPm{
+width: min-content !important;
+
+}

@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", serif;
+}
+
+
+.login {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    width: 400px;
+    height: fit-content;
+    background-color: #cfdeef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0px -4px 10px 10px #69696919;
+
+}
+
+.form-container p {
+    color: #403f3fd6;
+    font-weight: 500;
+    margin-top: 0.6rem;
+    margin-bottom: 1.4rem;
+}
+
+.form-container .form-group {
+    margin-top: 0.5rem;
+}
+
+#description, #email{
+    margin-top: 0.4rem;
+        height: 108px;
+    width: 352px;
+    resize: none;
+    background: #fffeee;
+}
+.form-container .form-group label {
+    width: 100%;
+    font-weight: 600;
+}
+
+.form-container .form-group input[type="text"],
+.form-container .form-group input[type="password"],
+.form-container .form-group input[type="number"],
+.form-container .form-group input[type="date"],
+.form-container .form-group select {
+    width: 100%;
+    height: 2.5rem;
+    border: 1.6px solid #6f6e6e9a;
+    border-radius: 6px;
+    outline: none;
+    padding: 3px 0px 3px 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: #fffeee;
+}
+.form-container .form-group input[type="text"]::placeholder,
+.form-container .form-group input[type="number"]::placeholder,
+.form-container .form-group input[type="date"] ::placeholder  {
+
+text-align: start;
+
+}
+
+.form-container .form-group input[type="submit"] {
+    width: 100%;
+    height: 2.6rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #198754;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fp{
+    justify-self: flex-end;
+}
+.form-container .form-group a,
+.form-container a {
+    text-decoration: none;
+    color: rgb(102, 51, 153);
+    font-weight: 500;
+}
+
+.form-container .lw{
+    justify-self: center;
+}
+
+.form-container .form-group button{
+    width: 100%;
+    height: 2.6rem;
+    border: 1.6px solid #cd03039a;
+    border-radius: 6px;
+    background-color: #fff;
+    font-weight: 600;
+    color: #cd03039a;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.form-container .form-group input[type="text"]:focus,
+.form-container .form-group input[type="password"]:focus,
+.form-container .form-group input[type="number"]:focus,
+.form-container .form-group input[type="date"]:focus,
+.form-container .form-group input[type="number"],
+.form-container .form-group select:focus{
+    border-color: #5f6fff;
+        background: #fffeee;
+
+}
+
+.form-container .form-group input[type="submit"]:hover,
+.form-container .form-group button:hover{
+    scale:0.98;
+}
+footer {
+    width: 100%;
+    margin-top: 4rem;
+    height: auto;
+    background-color: #5f6fff;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3rem;
+    font-weight: 600;
+    padding-bottom: 2rem;
+}
+
+@media (max-width:430px){
+    .form-container{
+        width: 300px;
+    }
+}
+@media (max-width:380px){
+    .form-container{
+        width:250px;
+    }
+}
+
+#google_login{
+
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+
+
+  /* Hide placeholder if input has value */
+  .custom-date-wrapper input[type="date"]:not(:placeholder-shown) + .custom-placeholder,
+  .custom-date-wrapper input[type="date"]:valid + .custom-placeholder {
+    opacity: 0;
+  }

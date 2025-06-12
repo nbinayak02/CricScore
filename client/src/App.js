@@ -1,25 +1,28 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import { getHomePage } from "./api/homepage";
-import Card from "./components/card";
-import { ErrorBoundary } from "react-error-boundary";
+import { Routes, Route } from 'react-router-dom';
+
+import { Navbar } from "./components/Navbar.js";
+import { Login } from "./components/Login.js";
+import { Signup } from "./components/Signup.js";
+import { Welcome } from "./components/welcome.js";
+import { Tournament } from "./components/Tournment.js";
+import { Match } from "./components/Match.js";
+import { Scoring } from "./components/Scoring.js";
 
 function App() {
-  const [message, setMessage] = useState(null);
-
-  useEffect(() => {
-    getHomePage().then((m) => {
-      setMessage(m);
-      // console.log(message);
-    });
-  }, []);
-
-  return (
-    <div>
-      <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <Card msg={message} />
-      </ErrorBoundary>
-    </div>
+  return ( 
+    <>
+    <Navbar />
+    <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/tournament" element={<Tournament />} />
+          <Route path="/match" element={<Match />} />
+          <Route path="/scoring" element={<Scoring />} />
+        </Routes>
+ 
+    </>
   );
 }
 
