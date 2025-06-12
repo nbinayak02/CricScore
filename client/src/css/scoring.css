@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway", serif;
+}
+
+
+.login {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+width: 51vw;
+    height: fit-content;
+    background-color: #cfdeef;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0px -4px 10px 10px #69696919;
+
+}
+
+.form-container p {
+    color: #403f3fd6;
+    font-weight: 500;
+    margin-top: 0.6rem;
+    margin-bottom: 1.4rem;
+}
+
+.form-container .form-group {
+    margin-top: 0.5rem;
+}
+
+#scoring_head{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2.7fr 2fr;
+}
+
+#score{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.css-13cymwt-control{
+    height: 40px;
+}
+.css-1dimb5e-singleValue{
+    margin-bottom: 10px;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+#add_run{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40;
+
+      background: linear-gradient(45deg, #28a745, #218838); /* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  /* box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6); */
+}
+
+#add_run:hover{
+
+      background-position: right center;
+  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+  color: white;
+
+    background: linear-gradient(270deg, #28a745, #218436, #28a745);
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+#wicket{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40;
+
+  background: linear-gradient(45deg, #dc3545, #c82333); /* Bootstrap red shades *//* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  /* box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6); */
+} 
+
+
+#wicket:hover{
+
+      background-position: right center;
+  box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6);  color: white;
+
+  background: linear-gradient(270deg, #dc3545, #b21f2d, #dc3545);
+      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+#undo_ball{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40;
+
+  background: linear-gradient(45deg, #2b5589, #3875c0); /* Bootstrap red shades *//* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  box-shadow: 0 4px 15px #3875c0;}
+
+#undo_ball:hover{
+
+      background-position: right center;
+  box-shadow: 0 4px 15px #3875c0;  color: white;
+
+  background: linear-gradient(270deg, #2b5589, #60A5FA, #2b5589);
+      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+#end_inning{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40;
+
+background: linear-gradient(45deg, #4A4A4A, #2E2E2E, #4A4A4A); /* Bootstrap red shades *//* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  /* box-shadow: 0 4px 15px #3875c0; */
+}
+
+#end_inning:hover{
+
+      background-position: right center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+
+  background: linear-gradient(270deg, #454242, #4A4A4A, #454242);
+      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+
+#description, #email{
+    margin-top: 0.4rem;
+        height: auto !important;
+    width: 352px;
+    resize: none;
+    background: #fffeee;
+}
+.form-container .form-group label {
+    width: 100%;
+    font-weight: 600;
+}
+
+.form-container .form-group input[type="text"],
+.form-container .form-group input[type="password"],
+.form-container .form-group input[type="number"],
+.form-container .form-group input[type="date"],
+.form-container .form-group select {
+    width: 100%;
+    height: 2.5rem;
+    border: 1.6px solid #6f6e6e9a;
+    border-radius: 6px;
+    outline: none;
+    padding: 3px 0px 3px 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: #fffeee;
+}
+.form-container .form-group input[type="text"]::placeholder,
+.form-container .form-group input[type="number"]::placeholder,
+.form-container .form-group input[type="date"] ::placeholder  {
+
+text-align: start;
+
+}
+
+.form-container .form-group input[type="submit"] {
+    width: 100%;
+    height: 2.6rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #198754;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fp{
+    justify-self: flex-end;
+}
+.form-container .form-group a,
+.form-container a {
+    text-decoration: none;
+    color: rgb(102, 51, 153);
+    font-weight: 500;
+}
+
+.form-container .lw{
+    justify-self: center;
+}
+
+.form-container .form-group button{
+    width: 100%;
+    height: 2.6rem;
+    border: 1.6px solid #cd03039a;
+    border-radius: 6px;
+    background-color: #fff;
+    font-weight: 600;
+    color: #cd03039a;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.form-container .form-group input[type="text"]:focus,
+.form-container .form-group input[type="password"]:focus,
+.form-container .form-group input[type="number"]:focus,
+.form-container .form-group input[type="date"]:focus,
+.form-container .form-group input[type="number"],
+.form-container .form-group select:focus{
+    /* border-color: #5f6fff; */
+        background: #fffeee;
+
+}
+
+.form-container .form-group input[type="submit"]:hover,
+.form-container .form-group button:hover{
+    scale:0.98;
+}
+footer {
+    width: 100%;
+    margin-top: 4rem;
+    height: auto;
+    background-color: #5f6fff;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3rem;
+    font-weight: 600;
+    padding-bottom: 2rem;
+}
+
+@media (max-width:430px){
+    .form-container{
+        width: 300px;
+    }
+}
+@media (max-width:380px){
+    .form-container{
+        width:250px;
+    }
+}
+
+#google_login{
+
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+
+
+  /* Hide placeholder if input has value */
+  .custom-date-wrapper input[type="date"]:not(:placeholder-shown) + .custom-placeholder,
+  .custom-date-wrapper input[type="date"]:valid + .custom-placeholder {
+    opacity: 0;
+  }
+
+  .react-time-picker__inputGroup__divider, .react-time-picker__inputGroup__leadingZero {
+    display: inline-block;
+    font: inherit;
+    font-weight:900 !important;
+}
+.react-time-picker__wrapper
+ {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    border: none !important;
+}
+
+/* .react-time-picker, .react-time-picker *, .react-time-picker *:before, .react-time-picker *:after {
+    box-sizing: border-box;
+        position: absolute !important;
+    left: -33px !important;
+    right: 0px !important;
+    top: -18px !important;
+    height: 37px !important;
+} */
+
+ .react-time-picker, .react-time-picker--closed, .react-time-picker--enabled{
+
+   box-sizing: border-box;
+        position: absolute !important;
+    left: -33px !important;
+    right: 0px !important;
+    top: -18px !important;
+    height: 37px !important;
+
+ }
+
+.react-time-picker__inputGroup__input, .react-time-picker__inputGroup__hour, .react-time-picker__inputGroup__input--hasLeadingZero{
+    height: 32px !important;
+ }
+
+ .css-1wy0on6{
+
+     height: 40px !important;
+     display: flex !important;
+     /* margin-bottom: 7px; */
+     align-items: center !important;
+    }

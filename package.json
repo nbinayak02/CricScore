@@ -13,10 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
+    "bootstrap-icons": "^1.13.1",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.15.1"
+    "leaflet": "^1.9.4",
+    "mongoose": "^8.15.1",
+    "react-leaflet": "^5.0.0"
   }
 }

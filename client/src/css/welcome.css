@@ -1,0 +1,95 @@
+#user_name{
+
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#create{
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5rem;
+    margin-bottom: 3rem;
+}
+
+#create button{
+    width: fit-content;
+    padding-right: 1rem;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+#create_tournment{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    height: 55px;
+
+      background: linear-gradient(45deg, #28a745, #218838); /* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+}
+
+#create_tournment:hover{
+
+      background-position: right center;
+  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+  color: white;
+
+    background: linear-gradient(270deg, #28a745, #218436, #28a745);
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+#create_match{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    height: 55px;
+
+      background: linear-gradient(45deg, #28a745, #218838); /* Bootstrap success green shades */
+  border: none;
+  color: white;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease;
+  background-size: 200% 200%;
+  background-position: left center;
+  
+
+    animation-play-state: paused; /* pause animation on hover */
+  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+}
+
+#create_match:hover{
+
+      background-position: right center;
+  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+  color: white;
+
+    background: linear-gradient(270deg, #28a745, #218436, #28a745);
+  background-size: 600% 600%;
+  animation: gradientShift 2.5s ease infinite;
+  border: none;
+
+}
+
