@@ -1,7 +1,18 @@
 import React from "react";
 import '../css/Navbar.css';
-
+import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 export const Navbar=()=>{
+
+//navigate to navigate the path of the clicked icon
+//location to check the stored path
+    const navigate = useNavigate();
+  const location = useLocation();
+
+  //function to store the path of clicked nav icon in navigate
+    const handleNavClick = (path) => {
+    navigate(path);
+  };
 
 return(
 
@@ -10,29 +21,29 @@ return(
 <nav className="navbar navbar-expand-lg" style={{backgroundColor:'#1D4ED8',color:'white !important'}} data-bs-theme="dark" >
 
   <div className="container-fluid">
-    <a className="navbar-brand" href="#">CricScore</a>
+    <Link className="navbar-brand" to="/"  onClick={() => handleNavClick('/')}>CricScore</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent" style={{position:'static'}}>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Dashboard</a>
+          <Link className={`nav-link ${location.pathname==='/'? 'active':''}`} onClick={() => handleNavClick('/')} aria-current="page" to="/">Dashboard</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Tournaments</a>
+          <Link className={`nav-link ${location.pathname==='/tournament'? 'active':''}`} onClick={() => handleNavClick('/tournament')} to="/tournament">Tournaments</Link>
         </li>
         <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a className={`nav-link dropdown-toggle "nav-link" ${location.pathname==='/match'? 'active':''}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Matches
           </a>
           <ul className="dropdown-menu">
             <li><a className="dropdown-item" href="#">View All</a></li>
-            <li><a className="dropdown-item" href="#">Create Match</a></li>
+            <li><Link className="dropdown-item" onClick={() => handleNavClick('/match')} to="/match">Create Match</Link></li>
           </ul>
         </li>
                 <li className="nav-item">
-          <a className="nav-link" href="#">Profile</a>
+          <Link className={`nav-link ${location.pathname==='/scoring'? 'active':''}`} onClick={() => handleNavClick('/scoring')} to="/scoring">Profile</Link>
         </li>
       </ul>
 
@@ -58,7 +69,7 @@ return(
 </svg>
 </button> */}
       </form>
-      <span className="profile"><a href="./p/login.html">Login</a></span>
+      <span className="profile"><Link to="/login">Login</Link></span>
 </div>
     </div>
   </div>

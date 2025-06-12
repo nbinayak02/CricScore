@@ -1,15 +1,15 @@
 import React from "react";
 import "../css/login.css"
+import { Link } from "react-router-dom";
 
 export const Login=()=>{
-
 
     return(
 <>
 <div className="login">
-        <div className="form-container">
+        <div className="login_form-container">
             <h2 style={{textAlign:'center'}}>Login to Play</h2>
-            <p>Doesn't have an account yet? <a href="./register.html">Sign up</a></p>
+            <p>Doesn't have an account yet? <Link to="/signup">Sign up</Link></p>
             <form>
                 <div className="form-group">
                     <label htmlFor="email">Email Address</label>

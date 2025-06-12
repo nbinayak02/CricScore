@@ -1,6 +1,5 @@
-// MapPicker.js
+import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import { useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -15,25 +14,33 @@ L.Icon.Default.mergeOptions({
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-function LocationMarker({ zIndex,onSelect }) {
+function LocationMarker({ onSelect }) {
   const [position, setPosition] = useState(null);
 
   useMapEvents({
     click(e) {
       setPosition(e.latlng);
-      onSelect(e.latlng); // Send lat/lng to parent
+      onSelect(e.latlng); // Notify parent
     },
   });
 
   return position ? <Marker position={position} /> : null;
 }
 
-export default function MapPicker({style, onSelect }) {
+const MapPicker = forwardRef(({ style, onSelect }, ref) => {
+  const mapRef = useRef();
+
+  // Expose map instance to parent if needed
+  useImperativeHandle(ref, () => ({
+    getMap: () => mapRef.current,
+  }));
+
   return (
     <MapContainer
-      center={[27.7, 85.3]} // Default to Kathmandu
+      center={[27.7, 85.3]} // Default center
       zoom={13}
-      style={{ height: '200px', width: '100%'}}
+      style={{ height: '200px', width: '100%', ...style }}
+      whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
@@ -42,4 +49,6 @@ export default function MapPicker({style, onSelect }) {
       <LocationMarker onSelect={onSelect} />
     </MapContainer>
   );
-}
+});
+
+export default MapPicker;

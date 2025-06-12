@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.form-container {
+.login_form-container {
     width: 400px;
     height: fit-content;
     background-color: #fff;
@@ -25,30 +25,30 @@
 
 }
 
-.form-container p {
+.login_form-container p {
     color: #403f3fd6;
     font-weight: 500;
     margin-top: 0.6rem;
     margin-bottom: 1.4rem;
 }
 
-.form-container .form-group {
+.login_form-container .form-group {
     margin-top: 1rem;
 }
 
 #pass, #email{
     margin-top: 0.4rem;
 }
-.form-container .form-group label {
+.login_form-container .form-group label {
     width: 100%;
     font-weight: 600;
 }
 
-.form-container .form-group input[type="text"],
-.form-container .form-group input[type="password"],
-.form-container .form-group input[type="number"],
-.form-container .form-group input[type="date"],
-.form-container .form-group select {
+.login_form-container .form-group input[type="text"],
+.login_form-container .form-group input[type="password"],
+.login_form-container .form-group input[type="number"],
+.login_form-container .form-group input[type="date"],
+.login_form-container .form-group select {
     width: 100%;
     height: 2rem;
     border: 1.6px solid #6f6e6e9a;
@@ -59,7 +59,7 @@
     font-weight: 500;
 }
 
-.form-container .form-group input[type="submit"] {
+.login_form-container .form-group input[type="submit"] {
     width: 100%;
     height: 2.6rem;
     border: none;
@@ -75,18 +75,18 @@
 .fp{
     justify-self: flex-end;
 }
-.form-container .form-group a,
-.form-container a {
+.login_form-container .form-group a,
+.login_form-container a {
     text-decoration: none;
     color: rgb(102, 51, 153);
     font-weight: 500;
 }
 
-.form-container .lw{
+.login_form-container .lw{
     justify-self: center;
 }
 
-.form-container .form-group button{
+.login_form-container .form-group button{
     width: 100%;
     height: 2.6rem;
     border: 1.6px solid #cd03039a;
@@ -99,17 +99,17 @@
     transition: 0.2s;
 }
 
-.form-container .form-group input[type="text"]:focus,
-.form-container .form-group input[type="password"]:focus,
-.form-container .form-group input[type="number"]:focus,
-.form-container .form-group input[type="date"]:focus,
-.form-container .form-group input[type="number"],
-.form-container .form-group select:focus{
+.login_form-container .form-group input[type="text"]:focus,
+.login_form-container .form-group input[type="password"]:focus,
+.login_form-container .form-group input[type="number"]:focus,
+.login_form-container .form-group input[type="date"]:focus,
+.login_form-container .form-group input[type="number"],
+.login_form-container .form-group select:focus{
     border-color: #5f6fff;
 }
 
-.form-container .form-group input[type="submit"]:hover,
-.form-container .form-group button:hover{
+.login_form-container .form-group input[type="submit"]:hover,
+.login_form-container .form-group button:hover{
     scale:0.98;
 }
 footer {
@@ -128,12 +128,12 @@ footer {
 }
 
 @media (max-width:430px){
-    .form-container{
+    .login_form-container{
         width: 300px;
     }
 }
 @media (max-width:380px){
-    .form-container{
+    .login_form-container{
         width:250px;
     }
 }

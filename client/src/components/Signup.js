@@ -1,4 +1,6 @@
 import React from "react";
+import '../css/login.css';
+import { Link } from "react-router-dom";
 export const Signup=()=>{
 
 
@@ -6,9 +8,9 @@ return(
 <>
 
 <div className="login" style={{height: '98vh'}}>
-        <div className="form-container">
+        <div className="login_form-container">
             <h2 style={{textAlign:'center'}}>Create Account</h2>
-            <p>Already have an account? <a href="./login.html">Login</a></p>
+            <p>Already have an account? <Link to="/login">Login</Link></p>
             <form>
 
                 <div className="form-group">

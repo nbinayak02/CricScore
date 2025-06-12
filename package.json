@@ -1,5 +1,5 @@
 {
-  "name": "cricscore",
+    "name": "cricscore",
   "version": "1.0.0",
   "description": "Cricket Scorer and Live Update System for Local Tournaments",
   "main": "index.js",
@@ -12,15 +12,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@react-google-maps/api": "^2.20.6",
-    "bootstrap-icons": "^1.13.1",
-    "concurrently": "^9.1.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "leaflet": "^1.9.4",
-    "mongoose": "^8.15.1",
-    "react-leaflet": "^5.0.0"
-  }
+"dependencies": {
+  "react": "18.2.0",
+  "react-dom": "18.2.0",
+  "react-router-dom": "6.22.3",
+  "react-error-boundary": "^3.1.4",
+  "react-scripts": "5.0.1",
+  "react-time-picker": "^6.4.0"
+},
+"resolutions": {
+  "react": "18.2.0",
+  "react-dom": "18.2.0"
+}
+
 }

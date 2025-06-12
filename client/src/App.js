@@ -1,8 +1,6 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import { getHomePage } from "./api/homepage.js";
-import Card from "./components/card.jsx";
-import { ErrorBoundary } from "react-error-boundary";
+import { Routes, Route } from 'react-router-dom';
+
 import { Navbar } from "./components/Navbar.js";
 import { Login } from "./components/Login.js";
 import { Signup } from "./components/Signup.js";
@@ -12,28 +10,19 @@ import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 
 function App() {
-  const [message, setMessage] = useState(null);
-
-  // useEffect(() => {
-  //   getHomePage().then((m) => {
-  //     setMessage(m);
-  //     // console.log(message);
-  //   });
-  // }, []);
-
-  return (
-    <div>
-      <ErrorBoundary fallback={<p>Something went wrong</p>}>
-      <Navbar/>
-      <Scoring></Scoring>
-      {/* <Match></Match> */}
-      {/* <Tournament></Tournament> */}
-      {/* <Welcome></Welcome> */}
-      {/* <Signup></Signup> */}
-      {/* <Login></Login> */}
-        {/* <Card msg={message} /> */}
-      </ErrorBoundary>
-    </div>
+  return ( 
+    <>
+    <Navbar />
+    <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/tournament" element={<Tournament />} />
+          <Route path="/match" element={<Match />} />
+          <Route path="/scoring" element={<Scoring />} />
+        </Routes>
+ 
+    </>
   );
 }
 

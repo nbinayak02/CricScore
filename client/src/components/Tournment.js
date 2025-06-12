@@ -65,7 +65,7 @@ export const Tournament=()=>{
                 <div className="form-group">
                     <input required type="text" id="phn"  readOnly value={place} name="location" placeholder="Location" onFocus={() => setShowMap(true)}/>
 
-                 {showMap  &&  <MapPicker   ref={Mapref} onSelect={(latlng) => {reverseGeocode(latlng.lat, latlng.lng)}} />
+                 {showMap  &&  <MapPicker  ref={Mapref} onSelect={(latlng) => {reverseGeocode(latlng.lat, latlng.lng)}} />
 
                   }  
 

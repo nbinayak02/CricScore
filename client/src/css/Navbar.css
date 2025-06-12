@@ -151,6 +151,9 @@ button {
     cursor: pointer;
 
 }
+.navbar-nav{
+  gap: 0.5rem;
+}
 
 .profile a {
     text-decoration: none;
@@ -170,4 +173,28 @@ flex-direction: row;
 }
 ul .nav-item{
       font-weight: 550;
+}
+.nav-item:hover {
+    color: #F1F5F9;
+}
+.nav-item:hover:after {
+    content: '';
+    height: 3px;
+    width:95%;
+    background-color: #F1F5F9;
+    display: block;
+    transition: all 300ms linear;
+    transform: scaleX(1);
+    margin: -5px 0 0;
+}
+
+.nav-item::after {
+    content: '';
+    height: 3px;
+    width: 95%;
+    background-color: #F1F5F9;
+    display: block;
+    transition: all 300ms linear;
+    transform: scaleX(0);
+    margin: -5px 0 0;
 }
