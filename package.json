@@ -1,0 +1,28 @@
+{
+    "name": "cricscore",
+  "version": "1.0.0",
+  "description": "Cricket Scorer and Live Update System for Local Tournaments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server",
+    "both": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+"dependencies": {
+  "react": "18.2.0",
+  "react-dom": "18.2.0",
+  "react-router-dom": "6.22.3",
+  "react-error-boundary": "^3.1.4",
+  "react-scripts": "5.0.1",
+  "react-time-picker": "^6.4.0"
+},
+"resolutions": {
+  "react": "18.2.0",
+  "react-dom": "18.2.0"
+}
+
+}

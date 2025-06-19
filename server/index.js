@@ -1,15 +1,15 @@
-require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
 
-const tournamentRoute = require("./routes/tournamentRoute");
-const matchRoute = require("./routes/matchRoute");
-const scorerRoute = require("./routes/scorerRoute");
-const homepageRoute = require("./routes/homepageRoute");
+const tournamentRoute = require("./routes/tournamentRoute.js");
+const matchRoute = require("./routes/matchRoute.js");
+const scorerRoute = require("./routes/scorerRoute.js");
+const homepageRoute = require("./routes/homepageRoute.js");
 
 const app = express();
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
+const PORT = 5000;
 
 //bypass cors policy to get req from frontend
 app.use(cors({
@@ -18,8 +18,12 @@ app.use(cors({
 
 
 app.get("/", (req, res) => {
-    res.send('<h1>Hello World</h1>');
+    res.send(
+        {message:"Congratulaltion for api from fronted",
+        status:200}
+    );
 });
+
 
 
 
