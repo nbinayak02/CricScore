@@ -137,20 +137,3 @@ footer {
         width:250px;
     }
 }
-
-#google_login{
-
-        display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-}
-
-#google_login:hover{
-
-    background-color: #c744449a;
-      background: linear-gradient( to right,#b8291c,#dca605,#2d9548, #2d63ba);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color:transparent;
-  font-weight: bold;
-}

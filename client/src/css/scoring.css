@@ -16,7 +16,7 @@
 }
 
 .form-container {
-width: 48vw;
+    width: 48vw;
     height: fit-content;
     background-color: #cfdeef;
     border-radius: 0.5rem;
@@ -33,16 +33,16 @@ width: 48vw;
 }
 
 .form-container .form-group {
-    margin-top: 0.5rem;
+    margin-top:    1rem;
 }
 
-#scoring_head{
+#scoring_head {
     display: grid;
     align-items: center;
     grid-template-columns: 2.7fr 2fr;
 }
 
-#score{
+#score {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -52,156 +52,179 @@ width: 48vw;
 
 }
 
-.css-13cymwt-control{
+.css-13cymwt-control {
     height: 40px;
 }
-.css-1dimb5e-singleValue{
+
+.css-1dimb5e-singleValue {
     margin-bottom: 10px;
 }
 
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
-#add_run{
+
+#add_run {
 
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40;
 
-      background: linear-gradient(45deg, #28a745, #218838); /* Bootstrap success green shades */
-  border: none;
-  color: white;
-  transition: background-position 0.5s ease, box-shadow 0.3s ease;
-  background-size: 200% 200%;
-  background-position: left center;
-  
+    background: linear-gradient(45deg, #28a745, #218838);
+    /* Bootstrap success green shades */
+    border: none;
+    color: white;
+    transition: background-position 0.5s ease, box-shadow 0.3s ease;
+    background-size: 200% 200%;
+    background-position: left center;
 
-    animation-play-state: paused; /* pause animation on hover */
-  /* box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6); */
+
+    animation-play-state: paused;
+    /* pause animation on hover */
+    /* box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6); */
 }
 
-#add_run:hover{
+#add_run:hover {
 
-      background-position: right center;
-  box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
-  color: white;
+    background-position: right center;
+    box-shadow: 0 4px 15px rgba(33, 136, 56, 0.6);
+    color: white;
 
     background: linear-gradient(270deg, #28a745, #218436, #28a745);
-  background-size: 600% 600%;
-  animation: gradientShift 2.5s ease infinite;
-  border: none;
+    background-size: 600% 600%;
+    animation: gradientShift 2.5s ease infinite;
+    border: none;
 
 }
-#wicket{
+
+#wicket {
 
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40;
 
-  background: linear-gradient(45deg, #dc3545, #c82333); /* Bootstrap red shades *//* Bootstrap success green shades */
-  border: none;
-  color: white;
-  transition: background-position 0.5s ease, box-shadow 0.3s ease;
-  background-size: 200% 200%;
-  background-position: left center;
-  
-
-    animation-play-state: paused; /* pause animation on hover */
-  /* box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6); */
-} 
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    /* Bootstrap red shades */
+    /* Bootstrap success green shades */
+    border: none;
+    color: white;
+    transition: background-position 0.5s ease, box-shadow 0.3s ease;
+    background-size: 200% 200%;
+    background-position: left center;
 
 
-#wicket:hover{
+    animation-play-state: paused;
+    /* pause animation on hover */
+    /* box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6); */
+}
 
-      background-position: right center;
-  box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6);  color: white;
 
-  background: linear-gradient(270deg, #dc3545, #b21f2d, #dc3545);
-      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
-  background-size: 600% 600%;
-  animation: gradientShift 2.5s ease infinite;
-  border: none;
+#wicket:hover {
+
+    background-position: right center;
+    box-shadow: 0 4px 15px rgba(200, 35, 51, 0.6);
+    color: white;
+
+    background: linear-gradient(270deg, #dc3545, #b21f2d, #dc3545);
+    /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+    background-size: 600% 600%;
+    animation: gradientShift 2.5s ease infinite;
+    border: none;
 
 }
-#undo_ball{
+
+#undo_ball {
 
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40;
 
-  background: linear-gradient(45deg, #2b5589, #3875c0); /* Bootstrap red shades *//* Bootstrap success green shades */
-  border: none;
-  color: white;
-  transition: background-position 0.5s ease, box-shadow 0.3s ease;
-  background-size: 200% 200%;
-  background-position: left center;
-  
+    background: linear-gradient(45deg, #2b5589, #3875c0);
+    /* Bootstrap red shades */
+    /* Bootstrap success green shades */
+    border: none;
+    color: white;
+    transition: background-position 0.5s ease, box-shadow 0.3s ease;
+    background-size: 200% 200%;
+    background-position: left center;
 
-    animation-play-state: paused; /* pause animation on hover */
-  box-shadow: 0 4px 15px #3875c0;}
 
-#undo_ball:hover{
+    animation-play-state: paused;
+    /* pause animation on hover */
+    box-shadow: 0 4px 15px #3875c0;
+}
 
-      background-position: right center;
-  box-shadow: 0 4px 15px #3875c0;  color: white;
+#undo_ball:hover {
 
-  background: linear-gradient(270deg, #2b5589, #60A5FA, #2b5589);
-      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
-  background-size: 600% 600%;
-  animation: gradientShift 2.5s ease infinite;
-  border: none;
+    background-position: right center;
+    box-shadow: 0 4px 15px #3875c0;
+    color: white;
+
+    background: linear-gradient(270deg, #2b5589, #60A5FA, #2b5589);
+    /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+    background-size: 600% 600%;
+    animation: gradientShift 2.5s ease infinite;
+    border: none;
 
 }
-#end_inning{
+
+#end_inning {
 
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40;
 
-background: linear-gradient(45deg, #4A4A4A, #2E2E2E, #4A4A4A); /* Bootstrap red shades *//* Bootstrap success green shades */
-  border: none;
-  color: white;
-  transition: background-position 0.5s ease, box-shadow 0.3s ease;
-  background-size: 200% 200%;
-  background-position: left center;
-  
+    background: linear-gradient(45deg, #4A4A4A, #2E2E2E, #4A4A4A);
+    /* Bootstrap red shades */
+    /* Bootstrap success green shades */
+    border: none;
+    color: white;
+    transition: background-position 0.5s ease, box-shadow 0.3s ease;
+    background-size: 200% 200%;
+    background-position: left center;
 
-    animation-play-state: paused; /* pause animation on hover */
-  /* box-shadow: 0 4px 15px #3875c0; */
+
+    animation-play-state: paused;
+    /* pause animation on hover */
+    /* box-shadow: 0 4px 15px #3875c0; */
 }
 
-#end_inning:hover{
+#end_inning:hover {
 
-      background-position: right center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    background-position: right center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
 
-  background: linear-gradient(270deg, #454242, #4A4A4A, #454242);
-      /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
-  background-size: 600% 600%;
-  animation: gradientShift 2.5s ease infinite;
-  border: none;
+    background: linear-gradient(270deg, #454242, #4A4A4A, #454242);
+    /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+    background-size: 600% 600%;
+    animation: gradientShift 2.5s ease infinite;
+    border: none;
 
 }
 
-#description, #email{
+#description,
+#email {
     margin-top: 0.4rem;
-        height: auto !important;
+    height: auto !important;
     width: 352px;
     resize: none;
     background: #fffeee;
 }
+
 .form-container .form-group label {
     width: 100%;
     font-weight: 600;
@@ -222,11 +245,12 @@ background: linear-gradient(45deg, #4A4A4A, #2E2E2E, #4A4A4A); /* Bootstrap red 
     font-weight: 500;
     background: #fffeee;
 }
+
 .form-container .form-group input[type="text"]::placeholder,
 .form-container .form-group input[type="number"]::placeholder,
-.form-container .form-group input[type="date"] ::placeholder  {
+.form-container .form-group input[type="date"] ::placeholder {
 
-text-align: start;
+    text-align: start;
 
 }
 
@@ -243,9 +267,10 @@ text-align: start;
     transition: 0.2s;
 }
 
-.fp{
+.fp {
     justify-self: flex-end;
 }
+
 .form-container .form-group a,
 .form-container a {
     text-decoration: none;
@@ -253,11 +278,11 @@ text-align: start;
     font-weight: 500;
 }
 
-.form-container .lw{
+.form-container .lw {
     justify-self: center;
 }
 
-.form-container .form-group button{
+.form-container .form-group button {
     width: 100%;
     height: 2.6rem;
     border: 1.6px solid #cd03039a;
@@ -275,16 +300,17 @@ text-align: start;
 .form-container .form-group input[type="number"]:focus,
 .form-container .form-group input[type="date"]:focus,
 .form-container .form-group input[type="number"],
-.form-container .form-group select:focus{
+.form-container .form-group select:focus {
     /* border-color: #5f6fff; */
-        background: #fffeee;
+    background: #fffeee;
 
 }
 
 .form-container .form-group input[type="submit"]:hover,
-.form-container .form-group button:hover{
-    scale:0.98;
+.form-container .form-group button:hover {
+    scale: 0.98;
 }
+
 footer {
     width: 100%;
     margin-top: 4rem;
@@ -300,20 +326,21 @@ footer {
     padding-bottom: 2rem;
 }
 
-@media (max-width:430px){
-    .form-container{
+@media (max-width:430px) {
+    .form-container {
         width: 300px;
     }
 }
-@media (max-width:380px){
-    .form-container{
-        width:250px;
+
+@media (max-width:380px) {
+    .form-container {
+        width: 250px;
     }
 }
 
-#google_login{
+#google_login {
 
-        display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.3rem;
@@ -321,19 +348,20 @@ footer {
 
 
 
-  /* Hide placeholder if input has value */
-  .custom-date-wrapper input[type="date"]:not(:placeholder-shown) + .custom-placeholder,
-  .custom-date-wrapper input[type="date"]:valid + .custom-placeholder {
+/* Hide placeholder if input has value */
+.custom-date-wrapper input[type="date"]:not(:placeholder-shown)+.custom-placeholder,
+.custom-date-wrapper input[type="date"]:valid+.custom-placeholder {
     opacity: 0;
-  }
+}
 
-  .react-time-picker__inputGroup__divider, .react-time-picker__inputGroup__leadingZero {
+.react-time-picker__inputGroup__divider,
+.react-time-picker__inputGroup__leadingZero {
     display: inline-block;
     font: inherit;
-    font-weight:900 !important;
+    font-weight: 900 !important;
 }
-.react-time-picker__wrapper
- {
+
+.react-time-picker__wrapper {
     display: flex;
     flex-grow: 1;
     flex-shrink: 0;
@@ -349,25 +377,29 @@ footer {
     height: 37px !important;
 } */
 
- .react-time-picker, .react-time-picker--closed, .react-time-picker--enabled{
+.react-time-picker,
+.react-time-picker--closed,
+.react-time-picker--enabled {
 
-   box-sizing: border-box;
-        position: absolute !important;
+    box-sizing: border-box;
+    position: absolute !important;
     left: -33px !important;
     right: 0px !important;
     top: -18px !important;
     height: 37px !important;
 
- }
+}
 
-.react-time-picker__inputGroup__input, .react-time-picker__inputGroup__hour, .react-time-picker__inputGroup__input--hasLeadingZero{
+.react-time-picker__inputGroup__input,
+.react-time-picker__inputGroup__hour,
+.react-time-picker__inputGroup__input--hasLeadingZero {
     height: 32px !important;
- }
+}
 
- .css-1wy0on6{
+.css-1wy0on6 {
 
-     height: 40px !important;
-     display: flex !important;
-     /* margin-bottom: 7px; */
-     align-items: center !important;
-    }
+    height: 40px !important;
+    display: flex !important;
+    /* margin-bottom: 7px; */
+    align-items: center !important;
+}

@@ -33,12 +33,12 @@
 }
 
 .form-container .form-group {
-    margin-top: 0.5rem;
+    margin-top: 10rem;
 }
 
 #description, #email{
     margin-top: 0.4rem;
-        height: 108px;
+    height: 108px;
     width: -webkit-fill-available !important;
     resize: none;
     background: #fffeee;

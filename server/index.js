@@ -3,9 +3,10 @@ const cors = require("cors");
 const connectToMongoose = require("./services/db.js");
 
 const homepageRoute = require("./routes/homeRoute.js");
-// const Tournament = require("./routes/Tournament.js");
-// const Match = require("./routes/Match.js");
 const scorerRoute = require("./routes/scorerRoute.js");
+const tournamentRoute = require("./routes/tournamentRoute.js");
+const cookieParser = require("cookie-parser");
+const checkAuthCookie = require("./middlewares/authenticate.js");
 
 const app = express();
 
@@ -19,14 +20,21 @@ const corsOption = {
   credentials: true,
 };
 
+//core middlewares
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
 
-//routes
-// app.use("/api/cricscore/tournament", tournamentRoute);
-// app.use("/api/cricscore/match", matchRoute);
+//public route - doesn't require auth cookie
 app.use("/api/cricscore/scorer", scorerRoute);
+
+//protected route-requires auth cookie
+app.use(checkAuthCookie("token"));
+app.use("/api/cricscore/tournament", tournamentRoute);
+
+
+// app.use("/api/cricscore/match", matchRoute);
 
 //routes for login and signup and tournament
 // app.use("/auth/", Authentication);

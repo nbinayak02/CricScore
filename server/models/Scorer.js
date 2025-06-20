@@ -21,6 +21,6 @@ const scorerSchema = new Schema(
   { timestamps: true }
 );
 
-const Scorer = model("scorer", scorerSchema);
+const Scorer = model("scorers", scorerSchema);
 
 module.exports = Scorer;
