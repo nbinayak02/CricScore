@@ -30,7 +30,7 @@ if (inputRef.current) {
         required
         onChange={
           (e) => {setDate(e.target.value);
-          onChange(e.target.value)}
+          onChange?.(e.target.value)}
         }
       />
       <span className="date-placeholder" onClick={handlePlaceholderClick}>{placeholder}</span>
