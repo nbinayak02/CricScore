@@ -1,24 +1,27 @@
-# Node modules
+# Ignore node_modules in both frontend and backend
+client/node_modules/
+server/node_modules/
 node_modules/
-client/node_modules
-server/node_modules
+
+# Optional: ignore build output
+client/build/
+server/dist/
 
 # Environment variables
-.env
+**/.env
+**/.env.local
+**/.env.production
+**/.env.development
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
 
-# OS files
+# OS and IDE files
 .DS_Store
-
-# IDE config
+*.log
+*.swp
 .vscode/
 .idea/
-Thumbs.db
-
-# Optional: Root-level output
-dist/
-build/
