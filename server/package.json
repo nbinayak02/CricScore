@@ -11,10 +11,12 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.15.1"
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.15.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

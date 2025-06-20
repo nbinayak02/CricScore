@@ -39,7 +39,7 @@
 #description, #email{
     margin-top: 0.4rem;
         height: 108px;
-    width: 352px;
+    width: -webkit-fill-available !important;
     resize: none;
     background: #fffeee;
 }

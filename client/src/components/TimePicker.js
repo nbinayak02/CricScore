@@ -6,7 +6,7 @@ import '../css/DateInput.css'; // Optional: For CSS styling
 import { useRef } from 'react';
 
 
-export default function MyTimePicker({placeholder}) {
+export default function MyTimePicker({ onChange,id,placeholder }) {
 
     const Timeref=useRef(null);
   const [value, setValue] = useState(null);
@@ -30,12 +30,24 @@ if (Timeref.current) {
 
   return (
     <div  style={{ padding: '1rem',position:'relative',display:'inline-block'}}>
-      {/* <label style={{ display: 'block', marginBottom: '0.5rem' }}>Select Time:</label> */}
       <div ref={Timeref} style={{zIndex:index,display:'flex', position: 'absolute',left: '0px',right:'0px'
 }}>
 
       <TimePicker
-        onChange={setValue}
+        onChange={(val) => {
+    setValue(val);
+   if (val) {
+    const [hourStr, minute] = val.split(':');
+    let hour = parseInt(hourStr);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    hour = hour % 12 || 12;
+    const formatted = `${hour}:${minute} ${ampm}`;
+    onChange(formatted);
+  } else {
+    onChange(null);
+  } // this will pass the value (e.g. "10:30") to parent
+  }}
+        id={id}
         value={value}
         disableClock={true}
         format="hh:mm a"

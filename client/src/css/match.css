@@ -212,3 +212,10 @@ footer {
      /* margin-bottom: 7px; */
      align-items: center !important;
     }
+
+    #react-select-3-placeholder{
+        margin-bottom: 10px !important;
+    }
+    #react-select-5-placeholder{
+        margin-bottom: 10px;
+    }

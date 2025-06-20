@@ -15,6 +15,7 @@ yarn-error.log*
 # IDE config
 .vscode/
 .idea/
+Thumbs.db
 
 # Optional: Root-level output
 dist/

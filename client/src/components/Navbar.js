@@ -1,7 +1,8 @@
-import React from "react";
 import '../css/Navbar.css';
+import { useState,useContext } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
+import cricContext from '../context/CricContext';
 export const Navbar=()=>{
 
 //navigate to navigate the path of the clicked icon
@@ -9,10 +10,24 @@ export const Navbar=()=>{
     const navigate = useNavigate();
   const location = useLocation();
 
+  //function to show  logout button only after login
+  const { isLoggedIn, logout } = useContext(cricContext);
+
+ 
+
   //function to store the path of clicked nav icon in navigate
     const handleNavClick = (path) => {
     navigate(path);
   };
+
+
+  //to handle logout
+  const handleLogout=(e)=>{
+     e.preventDefault(); // prevent page reload
+logout();
+ //calling islogin function to update login state
+  navigate("/login", { replace: true });
+  }
 
 return(
 
@@ -34,11 +49,11 @@ return(
           <Link className={`nav-link ${location.pathname==='/tournament'? 'active':''}`} onClick={() => handleNavClick('/tournament')} to="/tournament">Tournaments</Link>
         </li>
         <li className="nav-item dropdown">
-          <a className={`nav-link dropdown-toggle "nav-link" ${location.pathname==='/match'? 'active':''}`} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a className={`nav-link dropdown-toggle "nav-link" ${location.pathname==='/match'? 'active':''}`} href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Matches
           </a>
           <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">View All</a></li>
+            <li><a className="dropdown-item" href="/">View All</a></li>
             <li><Link className="dropdown-item" onClick={() => handleNavClick('/match')} to="/match">Create Match</Link></li>
           </ul>
         </li>
@@ -69,7 +84,8 @@ return(
 </svg>
 </button> */}
       </form>
-      <span className="profile"><Link to="/login">Login</Link></span>
+    {<button to="/login" hidden={isLoggedIn ? true:false} style={{textDecoration:'none',width:'auto',height:'auto'}}><span className="profile">Login</span></button>}
+    {<button hidden={isLoggedIn ? false:true}  onClick={handleLogout} style={{textDecoration:'none',width:'auto',height:'auto'}}><span className="ProfileLogout">Logout</span></button>}
 </div>
     </div>
   </div>
