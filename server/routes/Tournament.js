@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const TournamentSchema =require('../Model/Tournment');
+const TournamentSchema =require('../models/Tournment');
 const {body,validationResult}=require('express-validator');
 
 router.post('/tournament',

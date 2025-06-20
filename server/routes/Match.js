@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const MatchSchema =require("../Model/Match");
+const MatchSchema =require("../models/Match");
 router.post('/match',
     
     async (req,res)=>{
