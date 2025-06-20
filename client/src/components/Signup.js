@@ -1,104 +1,96 @@
 import React from "react";
-import "../css/login.css";
+import '../css/login.css';
 import { Link } from "react-router-dom";
-export const Signup = () => {
-  return (
-    <>
-      <div className="login" style={{ height: "98vh" }}>
+export const Signup=()=>{
+
+
+return(
+<>
+
+<div className="login" style={{height: '98vh'}}>
         <div className="login_form-container">
-          <h2 style={{ textAlign: "center" }}>Create Account</h2>
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-          <form>
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Your full name"
-              />
-            </div>
+            <h2 style={{textAlign:'center'}}>Create Account</h2>
+            <p>Already have an account? <Link to="/login">Login</Link></p>
+            <form>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="example@domain.com"
-              />
-            </div>
+                <div className="form-group">
+                    <label htmlFor="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name"/>
+                </div>
 
-            <div className="form-group">
-              <label htmlFor="phn">Phone Number</label>
-              <input type="text" id="phn" name="phn" placeholder="9800000000" />
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="pass">Password</label>
-              <input type="password" id="pass" name="pass" />
-            </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email Address</label>
+                    <input type="text" id="email" name="email" placeholder="example@domain.com"/>
+                </div>
 
-            <div className="form-group">
-              <label htmlFor="cpass">Confirm Password</label>
-              <input type="password" id="cpass" />
-            </div>
+                <div className="form-group">
+                    <label htmlFor="phn">Phone Number</label>
+                    <input type="text" id="phn" name="phn" placeholder="9800000000"/>
+                </div>
 
-            <div className="form-group">
-              <input type="submit" name="submit" value="Sign up" />
-            </div>
+                <div className="form-group">
+                    <label htmlFor="pass">Password</label>
+                    <input type="password" id="pass" name="pass"/>
+                </div>
 
-            <div className="form-group lw">
-              <p>Signup with</p>
-            </div>
+                <div className="form-group">
+                    <label htmlFor="cpass">Confirm Password</label>
+                    <input type="password" id="cpass"/>
+                </div>
 
-            <div className="form-group">
-              <button id="google_login" className="google_login">
-                <svg
-                  style={{ height: "25px", width: "25px" }}
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path
-                      fill="#F44336"
-                      d="M12,5c1.6167603,0,3.1012573,0.5535278,4.2863159,1.4740601l3.637146-3.4699707
+                <div className="form-group">
+                    <input type="submit" name="submit" value="Sign up"/>
+                </div>
+
+                <div className="form-group lw">
+                    <p>Signup with</p>
+                </div>
+
+                <div className="form-group">
+                    <button id="google_login" className="google_login">
+                        <svg style={{height: '25px' ,width: '25px'}}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+>
+  <g>
+    <path
+      fill="#F44336"
+      d="M12,5c1.6167603,0,3.1012573,0.5535278,4.2863159,1.4740601l3.637146-3.4699707
       C17.8087769,1.1399536,15.0406494,0,12,0C7.392395,0,3.3966675,2.5999146,1.3858032,6.4098511l4.0444336,3.1929321
       C6.4099731,6.9193726,8.977478,5,12,5z"
-                    />
-                    <path
-                      fill="#2196F3"
-                      d="M23.8960571,13.5018311C23.9585571,13.0101929,24,12.508667,24,12
+    />
+    <path
+      fill="#2196F3"
+      d="M23.8960571,13.5018311C23.9585571,13.0101929,24,12.508667,24,12
       c0-0.8578491-0.093689-1.6931763-0.2647705-2.5H12v5h6.4862061c-0.5247192,1.3637695-1.4589844,2.5177612-2.6481934,3.319458
       l4.0594482,3.204834C22.0493774,19.135437,23.5219727,16.4903564,23.8960571,13.5018311z"
-                    />
-                    <path
-                      fill="#FFC107"
-                      d="M5,12c0-0.8434448,0.1568604-1.6483765,0.4302368-2.3972168L1.3858032,6.4098511
+    />
+    <path
+      fill="#FFC107"
+      d="M5,12c0-0.8434448,0.1568604-1.6483765,0.4302368-2.3972168L1.3858032,6.4098511
       C0.5043335,8.0800171,0,9.9801636,0,12c0,1.9972534,0.4950562,3.8763428,1.3582153,5.532959l4.0495605-3.1970215
       C5.1484375,13.6044312,5,12.8204346,5,12z"
-                    />
-                    <path
-                      fill="#00B060"
-                      d="M12,19c-3.0455322,0-5.6295776-1.9484863-6.5922241-4.6640625L1.3582153,17.532959
+    />
+    <path
+      fill="#00B060"
+      d="M12,19c-3.0455322,0-5.6295776-1.9484863-6.5922241-4.6640625L1.3582153,17.532959
       C3.3592529,21.3734741,7.369812,24,12,24c3.027771,0,5.7887573-1.1248169,7.8974609-2.975708l-4.0594482-3.204834
       C14.7412109,18.5588989,13.4284058,19,12,19z"
-                    />
-                    <path
-                      opacity="0.1"
-                      d="M12,23.75c-3.5316772,0-6.7072754-1.4571533-8.9524536-3.7786865C5.2453613,22.4378052,
+    />
+    <path
+      opacity="0.1"
+      d="M12,23.75c-3.5316772,0-6.7072754-1.4571533-8.9524536-3.7786865C5.2453613,22.4378052,
       8.4364624,24,12,24c3.5305786,0,6.6952515-1.5313721,8.8881226-3.9592285C18.6495972,
       22.324646,15.4981079,23.75,12,23.75z"
-                    />
-                    <polygon
-                      opacity="0.1"
-                      points="12,14.25 12,14.5 18.4862061,14.5 18.587492,14.25"
-                    />
-                    <path
-                      fill="#E6E6E6"
-                      d="M23.9944458,12.1470337C23.9952393,
+    />
+    <polygon
+      opacity="0.1"
+      points="12,14.25 12,14.5 18.4862061,14.5 18.587492,14.25"
+    />
+    <path
+      fill="#E6E6E6"
+      d="M23.9944458,12.1470337C23.9952393,
       12.0977783,24,12.0493774,24,
       12c0-0.0139771-0.0021973-0.
       0274658-0.
@@ -116,11 +108,11 @@ export const Signup = () => {
       9944458,
       12.
       1470337z"
-                    />
-                    <path
-                      fill="#FFFFFF"
-                      opacity="0.2"
-                      d="M12,
+    />
+    <path
+      fill="#FFFFFF"
+      opacity="0.2"
+      d="M12,
       9.
       5v0.
       25h11.
@@ -134,27 +126,14 @@ export const Signup = () => {
       0503426-
       0.
       25H12z"
-                    />
-                    <linearGradient
-                      id="SVGID_1_"
-                      x1="0"
-                      x2="24"
-                      y1="12"
-                      y2="12"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop
-                        offset="0"
-                        style={{ color: "#FFFFFF", opacity: "0.2" }}
-                      />
-                      <stop
-                        offset="1"
-                        style={{ color: "#FFFFFF", opacity: "0" }}
-                      />
-                    </linearGradient>
-                    <path
-                      fill="url(#SVGID_1_)"
-                      d="M23.
+    />
+    <linearGradient id="SVGID_1_" x1="0" x2="24" y1="12" y2="12" gradientUnits="userSpaceOnUse">
+        <stop offset="0" style={{color:'#FFFFFF',opacity:'0.2'}}/>
+        <stop offset="1" style={{color:'#FFFFFF',opacity:'0'}}/>
+    </linearGradient>
+    <path
+      fill="url(#SVGID_1_)"
+      d="M23.
         7352295,
         9.
         5H12v5h6.
@@ -263,10 +242,10 @@ export const Signup = () => {
         7352295,
         9.
         5z"
-                    />
-                    <path
-                      opacity="0.1"
-                      d="M15.
+    />
+    <path
+      opacity="0.1"
+      d="M15.
             7885132,
             5.
             890686C14.
@@ -346,11 +325,11 @@ export const Signup = () => {
             7885132,
             5.
             890686z"
-                    />
-                    <path
-                      fill="#FFFFFF"
-                      opacity="0.2"
-                      d="M12,0.25c2.9750366,0,
+    />
+    <path
+      fill="#FFFFFF"
+      opacity="0.2"
+      d="M12,0.25c2.9750366,0,
             5.6829224,1.0983887,7.7792969,2.8916016l0.144165-0.1375122
             l-0.110014-0.0958166C17
             .7089558 ,1
@@ -360,18 +339,23 @@ export const Signup = () => {
             .3725586 ,0 ,12c0 ,
             .0421753 ,.0058594 ,.0828857 ,.0062866 ,.125C .0740356 ,5
             .5558472 ,5 .4147339 , .25 ,12 , .25z"
-                    />
-                  </g>
-                </svg>
-                <span id="google_logo" className="google_logo">
-                  {" "}
-                  Google
-                </span>
-              </button>
-            </div>
-          </form>
+    />
+   </g>
+</svg>
+                        <span id="google_logo" className="google_logo">   Google
+                        </span>
+                        </button>
+                </div>
+            </form>
         </div>
-      </div>
-    </>
-  );
-};
+    </div>
+
+
+
+
+</>
+
+
+);
+
+}
