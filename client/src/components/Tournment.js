@@ -4,12 +4,11 @@ import CustomDateInput from "./CustomDateInput";
 import MapPicker from './MapPicker';
 export const Tournament=()=>{
   
+    const host="http://localhost:5000";
 
   const Mapref=useRef(null);
   const [place,setplace]=useState('');
   const [showMap, setShowMap] = useState(false);
-
-
 
   //function to get address using latitude and longitude
   const reverseGeocode = async (lat, lon) => {
@@ -27,18 +26,57 @@ export const Tournament=()=>{
     }
   };
 
-  // console.log(reverseGeocode(27.7172, 85.3240)); // Kathmandu
-
-
-
   //function to handle submit 
-  const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    var tournament_name=document.getElementById("name").value;
+    var start_date=document.getElementById("start_date").value;
+    var end_date=document.getElementById("end_date").value;
+    var location=document.getElementById("phn").value;
+    var description=document.getElementById("description").value;
+
+
   if (place==='') {
     alert("Please select a location.");
     return;
   }
+
   // Submit the form
+
+  //apicall to enter tournment details in database
+
+const response = await fetch("http://localhost:5000/create/tournament", {
+  method: "POST",
+  credentials:'include',
+  headers: {
+    "Accept":"*/*",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    tournament_name:`${tournament_name}`,
+    start_date:`${start_date}`,
+    end_date:`${end_date}`,
+    location:`${location}`,
+    description:`${description}`,
+
+   }),
+
+});
+if(response.ok){
+  const data=await response.json();
+
+// Save to localStorage
+  // localStorage.setItem("user", JSON.stringify(data.user));
+
+console.log(data.touranment);
+  // navigate('/',{state:{user:data.user}});
+    }
+
+    else{
+      console.log("Unable to create Tournament",response.status);
+    }
+
 };
 
   return (
@@ -57,8 +95,8 @@ export const Tournament=()=>{
 
                 <div className="form-group" style={{display:'grid',gridTemplateColumns: '2fr 1fr',gap: '0.5rem'}}>
 
-                  <CustomDateInput placeholder={"Start Date"}/>
-                  <CustomDateInput placeholder={"End"}/>
+                  <CustomDateInput id={"start_date"} placeholder={"Start Date"}/>
+                  <CustomDateInput id={"end_date"}  placeholder={"End"}/>
 
                 </div>
 

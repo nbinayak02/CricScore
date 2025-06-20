@@ -8,6 +8,8 @@ import { Welcome } from "./components/welcome.js";
 import { Tournament } from "./components/Tournment.js";
 import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
+import { ScorerSignup } from "./components/ScorerSignup.js";
+import {ScorerLogin} from "./components/ScorerLogin.js";
 
 function App() {
   return ( 
@@ -17,6 +19,8 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signup/scorer" element={<ScorerSignup />} />
+          <Route path="/login/scorer" element={<ScorerLogin />} />
           <Route path="/tournament" element={<Tournament />} />
           <Route path="/match" element={<Match />} />
           <Route path="/scoring" element={<Scoring />} />

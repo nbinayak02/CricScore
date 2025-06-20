@@ -33,3 +33,24 @@ to check dublicate version of react :-> npm ls react react-dom
 
                                 npm install react-scripts
 
+to connect with mongodb :-> npm install mongodb
+
+ const { MongoClient } = require('mongodb');
+
+// Replace with your MongoDB connection string from Compass
+const uri = "mongodb://localhost:27017/yourDatabaseName"; 
+
+databasename:->CricScore
+
+const client = new MongoClient(uri);
+
+async function connectToMongoDB() {
+  try {
+    await client.connect();
+    console.log("Connected successfully to MongoDB");
+  }
+} 
+
+to install bcrypte password hashing :->npm i bcryptjs
+
+to install express validatior:->npm install express-validator

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import '../css/DateInput.css'; // Optional: For CSS styling
 
-const CustomDateInput = ({ placeholder }) => {
+const CustomDateInput = ({ onChange,id,placeholder }) => {
   const [date, setDate] = useState('');
   const inputRef=useRef(null);
 
@@ -23,11 +23,15 @@ if (inputRef.current) {
   return (
     <div className={`date-wrapper ${date ? 'filled' : ''}`}>
       <input style={{zIndex:index}}
+      id={id}
         type="date"
         ref={inputRef}
         value={date}
         required
-        onChange={(e) => setDate(e.target.value)}
+        onChange={
+          (e) => {setDate(e.target.value);
+          onChange(e.target.value)}
+        }
       />
       <span className="date-placeholder" onClick={handlePlaceholderClick}>{placeholder}</span>
     </div>
