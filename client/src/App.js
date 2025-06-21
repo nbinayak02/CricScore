@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 import { Navbar } from "./components/Navbar.js";
 import { Login } from "./components/Login.js";
@@ -9,20 +9,18 @@ import { Tournament } from "./components/Tournment.js";
 import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 
-
 function App() {
-  return ( 
+  return (
     <>
-    <Navbar />
-    <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/tournament" element={<Tournament />} />
-          <Route path="/match" element={<Match />} />
-          <Route path="/scoring" element={<Scoring />} />
-        </Routes>
- 
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/tournament" element={<Tournament />} />
+        <Route path="/match" element={<Match />} />
+        <Route path="/scoring" element={<Scoring />} />
+      </Routes>
     </>
   );
 }

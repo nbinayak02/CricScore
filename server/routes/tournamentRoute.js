@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const {
   handleCreateTournament,
+  handleShowAllTournament,
 } = require("../controllers/tournamentController");
+const validateTournament = require("../middlewares/validateCreateTournament");
 
-router.get("/", (req, res) => {
-  res.send({ message: "Tournament Page" });
-});
+router.get("/", handleShowAllTournament);
+router.post("/create", validateTournament, handleCreateTournament);
 
-router.post("/create", handleCreateTournament);
 module.exports = router;

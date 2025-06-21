@@ -9,10 +9,6 @@ async function handleScorerSignup(req, res) {
     const { fullName, email, password } = req.body;
     const isScorer = await Scorer.findOne({email});
 
-    if (!fullName || !email || !password) {
-      throw new Error("All input fields are required");
-    }
-
     if (isScorer) {
       throw new Error("Scorer already exists");
     }

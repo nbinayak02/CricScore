@@ -1,8 +1,6 @@
 const Tournament = require("../models/Tournment");
 
 async function handleCreateTournament(req, res) {
-  const tournament = req.body;
-  console.log(req.scorer);
 
   try {
     await Tournament.create({
@@ -18,8 +16,7 @@ async function handleCreateTournament(req, res) {
       createdBy: req.scorer._id,
     });
 
-    return res.status(200).json({ message: "Tournament Created Successfully" });
-
+    return res.status(201).json({ message: "Tournament Created Successfully" });
   } catch (error) {
     return res
       .status(422)
@@ -27,6 +24,27 @@ async function handleCreateTournament(req, res) {
   }
 }
 
+async function handleShowAllTournament(req, res) {
+  const scorerId = req.scorer._id;
+
+  try {
+    const scorerTournament = await Tournament.find({ createdBy: scorerId });
+
+    if (scorerTournament.length === 0) {
+      return res.status(200).json({ message: "No tournaments", data: [] });
+    }
+
+    console.log(scorerTournament);
+
+    return res
+      .status(200)
+      .json({ message: "Tournament fetch successful", data: scorerTournament });
+  } catch (error) {
+    return res.status(500).json({ message: "Error: " + error });
+  }
+}
+
 module.exports = {
   handleCreateTournament,
+  handleShowAllTournament,
 };
