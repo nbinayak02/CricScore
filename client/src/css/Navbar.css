@@ -7,8 +7,8 @@
   gap: 18px;
 }
 
-input,
-button {
+.navbar input,
+.navbar button {
   color: #000000;
   padding: 0;
   margin: 0;
@@ -46,7 +46,7 @@ input[type="text"]::placeholder {
   text-align: center;
 }
 
-button {
+.navbar button {
   position: relative;
   display: block;
   width: 80px;

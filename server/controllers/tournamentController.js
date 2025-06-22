@@ -1,7 +1,7 @@
 const Tournament = require("../models/Tournment");
 
 async function handleCreateTournament(req, res) {
-
+  const tournament = req.body;
   try {
     await Tournament.create({
       tournament_name: tournament.tournament_name,
@@ -20,7 +20,7 @@ async function handleCreateTournament(req, res) {
   } catch (error) {
     return res
       .status(422)
-      .json({ message: "Error creating tournament: " + error });
+      .json({ message: error });
   }
 }
 

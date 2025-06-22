@@ -1,14 +1,13 @@
 import cricContext from "./CricContext";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const CricScoreState=(props)=>{
-
+const CricScoreState = (props) => {
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-    // Update localStorage when user state changes
+  // Update localStorage when user state changes
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -16,8 +15,8 @@ const CricScoreState=(props)=>{
       localStorage.removeItem("user");
     }
   }, [user]);
-  
-    const login = (userData) => {
+
+  const login = (userData) => {
     setUser(userData);
   };
 
@@ -25,19 +24,10 @@ const CricScoreState=(props)=>{
     setUser(null);
   };
 
-
-return(
-
-
-
-<cricContext.Provider value={{ user, isLoggedIn: !!user, login, logout }}>
-    {props.children}
-</cricContext.Provider>
-)
-
-
-
-
-
-}
+  return (
+    <cricContext.Provider value={{ user, isLoggedIn: !!user, login, logout }}>
+      {props.children}
+    </cricContext.Provider>
+  );
+};
 export default CricScoreState;

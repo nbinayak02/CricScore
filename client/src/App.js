@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar.js";
 import { Login } from "./components/Login.js";
 import { Signup } from "./components/Signup.js";
 import { Welcome } from "./components/welcome.js";
-import { Tournament } from "./components/Tournment.js";
+import { Tournament } from "./components/Tournament.js";
 import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 
