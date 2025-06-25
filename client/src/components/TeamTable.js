@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Table = (props) => {
+const TeamTable = (props) => {
   const navigate = useNavigate();
 
   const handleNavigation = (tourId) => {
@@ -13,13 +13,9 @@ const Table = (props) => {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Tournament Name</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Venue</th>
-            <th scope="col">Location</th>
-            <th scope="col">Format</th>
-            <th scope="col">Organizers</th>
+            <th scope="col">Team Name</th>
+            <th scope="col">Squad</th>
+            <th scope="col">Coach</th>
             <th scope="col" colSpan={3}>
               Action
             </th>
@@ -29,23 +25,19 @@ const Table = (props) => {
           {props.data &&
             props.data.map((item, index) => {
               return (
-                <tr key={index+1}>
+                <tr key={index + 1}>
                   <td>{index + 1}</td>
-                  <td>{item.tournament_name}</td>
-                  <td>{new Date(item.start_date).toDateString()}</td>
-                  <td>{new Date(item.end_date).toDateString()}</td>
-                  <td>{item.venue}</td>
-                  <td>{item.location}</td>
-                  <td>{item.format}</td>
-                  <td>{item.organizer || "-"}</td>
+                  <td>{item.teamName}</td>
+                  <td>{item.squad}</td>
+                  <td>{item.teamCoach}</td>
                   <td>
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-primary"
                       onClick={() => handleNavigation(item._id)}
                     >
                       Setup
-                    </button>
+                    </button> */}
                   </td>
                   <td>
                     <button type="button" className="btn btn-success">
@@ -66,4 +58,4 @@ const Table = (props) => {
   );
 };
 
-export default Table;
+export default TeamTable;

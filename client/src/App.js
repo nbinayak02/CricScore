@@ -8,6 +8,7 @@ import { Welcome } from "./components/welcome.js";
 import { Tournament } from "./components/Tournament.js";
 import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
+import SetupTournament from "./components/SetupTournament.js"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/tournament" element={<Tournament />} />
         <Route path="/match" element={<Match />} />
         <Route path="/scoring" element={<Scoring />} />
+        <Route path="/tournament/:id" element={<SetupTournament />}/>
       </Routes>
     </>
   );
