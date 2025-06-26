@@ -9,8 +9,19 @@ import { Tournament } from "./components/Tournament.js";
 import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
+// import LoadingBar from "react-top-loading-bar"; 
 
-function App() {
+ function App (){
+
+  
+  // loadingBar = useRef(null);
+  //  this.setProgress = (value) => {
+  //   if (loadingBar.current) {
+  //     loadingBar.current.continuousStart(); // Optional: Start animation
+  //     loadingBar.current.setProgress(value); // Set specific value
+  //   }
+  // };
+
   return (
     <>
       <Navbar />
@@ -26,5 +37,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

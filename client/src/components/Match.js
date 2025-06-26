@@ -1,170 +1,212 @@
-import React, { useRef, useState } from "react";
-import'../css/match.css';
-import Select from 'react-select';
+import React, { useRef, useState, useEffect } from "react";
+import "../css/match.css";
+import Select from "react-select";
 import CustomDateInput from "./CustomDateInput";
 import MyTimePicker from "./TimePicker";
-export const Match=()=>{
-  
-  const [TeamA,setTeamA]=useState('Team A');
-  const [TeamB,setTeamB]=useState('Team B');
+export const Match = () => {
+  const host = "http://localhost:5000";
 
+  const [TeamA, setTeamA] = useState("Team A");
+  const [TeamB, setTeamB] = useState("Team B");
 
-  const [matchDate, setMatchDate] = useState('');
-const [matchTime, setMatchTime] = useState('');
+  const [matchDate, setMatchDate] = useState("");
+  const [matchTime, setMatchTime] = useState("");
 
-
+  const [refresh, setRefresh] = useState(0);
+  const [Data, setData] = useState(null);
 
   //to styling and editing <select> <option>
-  const [selectedOption, setSelectedOption] = useState(null); 
-  const options = [
-  { value: 'Nepal Premier League', label: 'Nepal Premier League' },
-  { value: 'Indian Premier League', label: 'Indian Premier League' },
-];
+  const [selectedOption, setSelectedOption] = useState(null);
 
+  const [options, setOptions] = useState(null);
+  const [venues, setVenus] = useState(null);
 
-const [selectedVenue, setSelectedVenue] = useState(null); 
-const venues=[
-    {value:'Biratnaga cricket Stadium',label:"Biratnagar cricket Stadium"},
-    {value:'Birtamod cricked stadium',label:"Birtamod cricket Stadium"},
-];
+  const [selectedVenue, setSelectedVenue] = useState(null);
 
+  // const venues = [
+  //   { value: "Biratnagar", label: "Biratnagar cricket Stadium" },
+  //   { value: "Birtamod", label: "Birtamod cricket Stadium" },
+  // ];
 
+  useEffect(() => {
+    fetchData();
+    //to get tournament name from api and store to options
+  }, []);
 
-  // function to handle submit 
-  const handleSubmit =async (e) => {
-  e.preventDefault();
+  //fetch table data
+  const fetchData = async () => {
+    const response = await fetch(`${host}/api/cricscore/tournament`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
 
-    const tournament_name=selectedOption;
-    var teamA=document.getElementById("teamA").value;
-    var teamB=document.getElementById("teamB").value;
-    const match_date=matchDate;
-    var match_time=matchTime;
-    const venue=selectedVenue;
+    const result = await response.json();
 
-    
-  // Submit the form
+    if (result.data) {
+      setData(result.data);
+      const opts = result.data.map((t) => ({
+        value: t.tournament_name,
+        label: t.tournament_name,
+      }));
+      const venue1 = result.data.map((t) => ({
+        value: t.venue,
+        label: t.venue,
+      }));
 
-  const response = await fetch("http://localhost:5000/create/match", {
-  method: "POST",
-  credentials:'include',
-  headers: {
-    "Accept":"*/*",
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    tournament_name:`${tournament_name}`,
-    teamA:`${teamA}`,
-    teamB:`${teamB}`,
-    match_date:`${match_date}`,
-    match_time:`${match_time}`,
-    venue:`${venue}`,
-
-   }),
-
-});
-if(response.ok){
-  const data=await response.json();
-
-// Save to localStorage
-  // localStorage.setItem("user", JSON.stringify(data.user));
-
-console.log(data.match);
-  // navigate('/',{state:{user:data.user}});
+      setOptions(opts);
+      setVenus(venue1)
+    } else {
+      console.log("Tournament data  not get from backend:");
     }
+    console.log(result.data);
+  };
 
-    else{
-      console.log("Unable to create Tournament",response.status);
+  // function to handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const tournament_name = selectedOption;
+    var teamA = TeamA;
+    var teamB = TeamB;
+    const match_date = matchDate;
+    var match_time = matchTime;
+    const venue = selectedVenue;
+
+    // Submit the form
+
+    const response = await fetch("http://localhost:5000/create/match", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tournament_name: `${tournament_name}`,
+        teamA: `${teamA}`,
+        teamB: `${teamB}`,
+        match_date: `${match_date}`,
+        match_time: `${match_time}`,
+        venue: `${venue}`,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+
+      console.log("submitted data:"+data.match);
+      // navigate('/',{state:{user:data.user}});
+    } else {
+      console.log("Unable to create Match", response.status);
     }
-
-
-};
+  };
 
   return (
-
-<>
-
-<div className="login" style={{height: '98vh'}}>
+    <>
+      <div className="login" style={{ height: "98vh" }}>
         <div className="form-container">
-            <h2 style={{textAlign:'center'}}>Create Match</h2>
-            <form onSubmit={handleSubmit}>
+          <h2 style={{ textAlign: "center" }}>Create Match</h2>
+          <form >
+            <div
+              className="form-group"
+              style={{ zIndex: "3", position: "relative", fontWeight: "500" }}
+            >
+              <Select
+                id="name"
+                name="name"
+                options={options ? options:null}
+                value={
+                  options && options.find((opt) => opt.value === selectedOption) || null
+                }
+                onChange={(opt) => setSelectedOption(opt?.value)}
+                isClearable
+                placeholder="Tournament Name"
+                styles={{
+                  placeholder: (base) => ({
+                    ...base,
+                    color: "#888",
+                  }),
+                }}
+                required
+              />
+            </div>
 
-                <div className="form-group" style={{ zIndex:'3',position:'relative',fontWeight:'500'}}>
+            <div
+              className="form-group"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "6fr 1fr 6fr",
+                gap: "0.5rem",
+              }}
+            >
+              <input
+                type="text"
+                value={TeamA}
+                required
+                onChange={(e) => setTeamA(e.target.value)}
+              />
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                vs
+              </span>
+              <input
+                type="text"
+                value={TeamB}
+                required
+                onChange={(e) => setTeamB(e.target.value)}
+              />
+            </div>
 
-<Select
-  id="name" name="name"
-  options={options}
-  value={options.find(opt => opt.value === selectedOption) || null}
-  onChange={(opt) => setSelectedOption(opt?.value)}
-  isClearable
-  placeholder="Tournament Name"
-  styles={{
-    placeholder: (base) => ({
-      ...base,
-      color: '#888',
-    }),
-  }}
-  required
-/>
-                </div>
+            <div
+              className="form-group"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.25fr 1fr",
+                gap: "4.5rem",
+              }}
+            >
+              <CustomDateInput placeholder={"Match Date"} />
+              <MyTimePicker placeholder={"Time"} />
+            </div>
 
+            <div
+              className="form-group"
+              style={{ zIndex: "3", position: "relative", fontWeight: "500" }}
+            >
+              <Select
+                id="description"
+                name="description"
+                options={venues ? venues :null}
+                value={
+                 venues && venues.find((opt) => opt.value === selectedVenue) || null
+                }
+                onChange={(opt) => setSelectedVenue(opt?.value)}
+                isClearable
+                placeholder="Ground Name/Venue"
+                styles={{
+                  placeholder: (base) => ({
+                    ...base,
+                    color: "#888",
+                  }),
+                }}
+                required
+              />
+            </div>
 
-                <div  className="form-group" style={{display:'grid',gridTemplateColumns: '6fr 1fr 6fr',gap: '0.5rem'}}>
-      <input 
-      id="teamA"
-        type="text"
-        value={TeamA}
-        required
-        onChange={(e) => setTeamA(e.target.value)}
-      />
-      <span style={{display:'flex', alignItems:'center',justifyContent:'center'}}>vs</span>
-      <input 
-      id="teamB"
-        type="text"
-        value={TeamB}
-        required
-        onChange={(e) => setTeamB(e.target.value)}
-      />
-
-                </div>
-
-                    <div className="form-group" style={{display:'grid',gridTemplateColumns: '1.25fr 1fr',gap: '4.5rem'}}>
-
-                  <CustomDateInput id={"match_date"}  onChange={setMatchDate} placeholder={"Match Date"}/>
-                  <MyTimePicker id={"match_time"} onChange={setMatchTime} placeholder={"Time"}/>
-
-                </div>
-
-  <div className="form-group" style={{ zIndex:'3',position:'relative',fontWeight:'500'}}>
-
-<Select
-  id="venue" name="description"
-  options={venues}
-  value={venues.find(opt => opt.value === selectedVenue) || null}
-  onChange={(opt) => setSelectedVenue(opt?.value)}
-  isClearable
-  placeholder="Ground Name/Venue"
-  styles={{
-    placeholder: (base) => ({
-      ...base,
-      color: '#888',
-    }),
-  }}
-  required
-/>
-      </div>
-
-                <div className="form-group" style={{marginTop:'1rem'}}>
-                    <input type="submit" name="submit" value="Create Match"/>
-                </div>
-
-            </form>
+            <div className="form-group" style={{ marginTop: "1rem" }}>
+              <input type="submit" name="submit" value="Create Match" />
+            </div>
+          </form>
         </div>
-    </div>
-
-
-
-
-</>
-)
-
-}
+      </div>
+    </>
+  );
+};
