@@ -5,7 +5,9 @@ const {
   handleShowAllTournament,
   handleGetTourById,
   handleCreateTeam,
-  handleGetAllTeams
+  handleGetAllTeams,
+  handleUpdateTournament,
+  handleDeleteTournament
 } = require("../controllers/tournamentController");
 const validateTournament = require("../middlewares/validateCreateTournament");
 const validateTeam = require("../middlewares/validateCreateTeam");
@@ -16,5 +18,7 @@ router.get("/:id", handleGetTourById);
 router.post("/:id/teams", validateTeam, handleCreateTeam);
 router.get("/:id/teams", handleGetAllTeams);
 
+router.put("/update", validateTournament, handleUpdateTournament);
+router.post("/delete", handleDeleteTournament);
 
 module.exports = router;
