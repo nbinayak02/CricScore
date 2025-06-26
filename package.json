@@ -13,17 +13,19 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "concurrently": "^9.1.2",
+        "concurrently": "^9.2.0",
         "mongodb": "^6.17.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-error-boundary": "^3.1.4",
         "react-router-dom": "6.22.3",
         "react-scripts": "5.0.1",
-        "react-time-picker": "^6.4.0"
+        "react-time-picker": "^6.4.0",
+        "react-top-loading-bar": "^3.0.2"
     },
-    "resolutions": {
-        "react": "18.2.0",
-        "react-dom": "18.2.0"
-    }
+"resolutions": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+}
+
 }

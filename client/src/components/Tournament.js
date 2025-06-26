@@ -26,7 +26,7 @@ export const Tournament = () => {
 
     const result = await response.json();
     setData(result.data);
-    console.log(data);
+    console.log("Fetched"+result.data[0]);
   };
 
   return (
@@ -40,7 +40,7 @@ export const Tournament = () => {
         Create Tournament
       </button>
 
-      <Table data={data} />
+      <Table data={data} refresh={refresh} setRefresh={setRefresh} />
 
       {/* modal */}
       <div
@@ -48,7 +48,7 @@ export const Tournament = () => {
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex={-1}
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
