@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Table = (props) => {
-  
   const [editId, setEditId] = useState(null);
   const [editedData, setEditedData] = useState({});
 
- const host = "http://localhost:5000";
+  const host = "http://localhost:5000";
+
+  const navigate = useNavigate();
+
+  const handleNavigation = (tourId) => {
+    navigate(`/tournament/${tourId}`);
+  };
 
   const handleEdit = (item) => {
     setEditId(item._id);
@@ -22,41 +27,37 @@ const Table = (props) => {
     setEditedData({ ...editedData, [e.target.name]: e.target.value });
   };
 
-  const handleDelete= async(id)=>{
-    
-    const isConfirm=window.confirm("You are sure to delete?");
-    
-    if(isConfirm){
+  const handleDelete = async (id) => {
+    const isConfirm = window.confirm("You are sure to delete?");
+
+    if (isConfirm) {
       const response = await fetch(`${host}/api/cricscore/tournament/delete`, {
         method: "POST",
-       credentials: "include",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id:`${id}`,
-      }),
-
+        credentials: "include",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: `${id}`,
+        }),
       });
-   
-      if(response.ok){
 
+      if (response.ok) {
         const data = await response.json();
-        
+
         alert(data.message);
         //refresh table
         props.setRefresh(props.refresh + 1);
       }
-      
     }
-  }
-    
+  };
+
   const handleSave = async (e) => {
     // Call update API or parent method here
 
-e.preventDefault();
-    var _id=editedData._id;
+    e.preventDefault();
+    var _id = editedData._id;
     var tournament_name = editedData.tournament_name;
     var start_date = editedData.start_date;
     var end_date = editedData.end_date;
@@ -67,7 +68,6 @@ e.preventDefault();
     var organizer = editedData.organizer;
     var description = editedData.description;
 
-
     const response = await fetch(`${host}/api/cricscore/tournament/update`, {
       method: "PUT",
       credentials: "include",
@@ -76,7 +76,7 @@ e.preventDefault();
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id:`${_id}`,
+        _id: `${_id}`,
         tournament_name: `${tournament_name}`,
         start_date: `${start_date}`,
         end_date: `${end_date}`,
@@ -100,8 +100,6 @@ e.preventDefault();
     setEditedData({});
   };
   return (
-
-
     <>
       <table className="table">
         <thead>
@@ -132,7 +130,7 @@ e.preventDefault();
                         name="tournament_name"
                         value={editedData.tournament_name}
                         onChange={handleChange}
-                        style={{ boxSizing:'border-box' }}
+                        style={{ boxSizing: "border-box" }}
                       />
                     ) : (
                       item.tournament_name
@@ -206,17 +204,21 @@ e.preventDefault();
                         name="organizer"
                         value={editedData.organizer || ""}
                         onChange={handleChange}
-                        style={{  maxWidth: "156px" }}
+                        style={{ maxWidth: "156px" }}
                       />
                     ) : (
                       item.organizer || "-"
                     )}
                   </td>
-                  <td hidden={isEditing ?true:false}>
+                  <td hidden={isEditing ? true : false}>
                     {!isEditing && (
-                     <Link to="/match"> <button type="button" className="btn btn-primary">
-                        View
-                      </button></Link>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => handleNavigation(item._id)}
+                      >
+                        Setup
+                      </button>
                     )}
                   </td>
                   <td>
@@ -225,18 +227,29 @@ e.preventDefault();
                         Save
                       </button>
                     ) : (
-                      <button onClick={() => handleEdit(item)} className="btn btn-success">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="btn btn-success"
+                      >
                         Edit
                       </button>
                     )}
                   </td>
                   <td>
                     {isEditing ? (
-                      <button onClick={handleCancel} className="btn btn-secondary">
+                      <button
+                        onClick={handleCancel}
+                        className="btn btn-secondary"
+                      >
                         Cancel
                       </button>
                     ) : (
-                      <button onClick={()=>handleDelete(item._id)} className="btn btn-danger">Delete</button>
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className="btn btn-danger"
+                      >
+                        Delete
+                      </button>
                     )}
                   </td>
                 </tr>
@@ -247,6 +260,5 @@ e.preventDefault();
     </>
   );
 };
-
 
 export default Table;
