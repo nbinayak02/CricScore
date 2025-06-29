@@ -7,6 +7,7 @@ const scorerRoute = require("./routes/scorerRoute.js");
 const tournamentRoute = require("./routes/tournamentRoute.js");
 const cookieParser = require("cookie-parser");
 const checkAuthCookie = require("./middlewares/authenticate.js");
+const Match=require('./routes/Match.js');
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.use("/api/cricscore/tournament", tournamentRoute);
 
 //routes for login and signup and tournament
 // app.use("/auth/", Authentication);
-// app.use("/create/", Tournament, Match);
+app.use("/api/cricscore/match",  Match);
 // app.use('api/notes', require('./routes/notes'));
 
 //routes for viewer

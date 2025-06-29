@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import "../css/DateInput.css"; // Optional: For CSS styling
 
-const CustomDateInput = ({ onChange, id, placeholder }) => {
+const CustomDateInput = ({ setMatchDate, onChange, id, placeholder }) => {
   const [date, setDate] = useState("");
   const inputRef = useRef(null);
 
-  const [index, setindex] = useState(-2);
+  const [index, setindex] = useState(-1);
 
   const handlePlaceholderClick = () => {
-    setindex(2);
+    setindex(1);
 
     if (inputRef.current) {
       inputRef.current.focus();
@@ -31,6 +31,7 @@ const CustomDateInput = ({ onChange, id, placeholder }) => {
         required
         onChange={(e) => {
           setDate(e.target.value);
+          setMatchDate(e.target.value)
           onChange?.(e.target.value);
         }}
       />

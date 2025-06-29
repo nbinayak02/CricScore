@@ -3,18 +3,31 @@ import { useParams } from "react-router-dom";
 import TournamentCard from "./TournamentCard";
 import CreateTeam from "./CreateTeam";
 import TeamTable from "./TeamTable";
+import { EditTeam } from"./CreateTeam.js";
+import { useRef } from "react";
 
 const SetupTournament = () => {
+
+  //to run the model when editbutton is clicked
+    const modalRef = useRef();
+    const openModal = () => {
+  modalRef.current.click();
+};
+
+
   const params = useParams();
   const tourId = params.id;
   const host = "http://localhost:5000";
   const [refresh, setRefresh] = useState(0);
   const [tourData, setTourData] = useState([]);
   const [teamData, setTeamData] = useState([]);
+  const [isEdit,setIsEdit]=useState(false);
+  const[EditTeamId,setEditTeamId]=useState(null);
+  const[Editteam,setEditTeam]=useState(null);
 
   useEffect(() => {
     fetchTourData();
-  }, []);
+  }, [refresh]);
   
   //for refetching data when new data is inserted
   useEffect(()=>{
@@ -57,6 +70,7 @@ const SetupTournament = () => {
         className="btn btn-primary mt-4"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
+        ref={modalRef}
       >
         Create Team
       </button>
@@ -67,7 +81,7 @@ const SetupTournament = () => {
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
@@ -85,7 +99,12 @@ const SetupTournament = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <CreateTeam id={tourId}  refresh={refresh} setRefresh={setRefresh}/>
+              {!isEdit?
+                <CreateTeam id={tourId}  refresh={refresh} setRefresh={setRefresh}/>
+                :
+                <EditTeam setEditTeam={setEditTeam} setEditTeamId={setEditTeamId}  setIsEdit={setIsEdit} EditTeam={Editteam}  id={EditTeamId} refresh={refresh} setRefresh={setRefresh}/>
+              }
+
             </div>
             <div className="modal-footer">
               <button
@@ -93,13 +112,13 @@ const SetupTournament = () => {
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
-                Close
+                Cancel
               </button>
             </div>
           </div>
         </div>
       </div>
-      <TeamTable data={teamData}/>
+      <TeamTable openModal={openModal} setIsEdit={setIsEdit} setEditTeam={setEditTeam} setEditTeamId={setEditTeamId} refresh={refresh} setRefresh={setRefresh} data={teamData}/>
     </div>
   );
 };

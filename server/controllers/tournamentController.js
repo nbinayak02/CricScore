@@ -1,6 +1,8 @@
 const Team = require("../models/Teams");
 const Tournament = require("../models/Tournment");
+const Teams=require('../models/Teams');
   const mongoose = require("mongoose");
+const { response } = require("express");
 
 async function handleCreateTournament(req, res) {
   const tournament = req.body;
@@ -25,7 +27,6 @@ async function handleCreateTournament(req, res) {
 }
 async function handleUpdateTournament(req, res) {
   const tournamentUpdate = req.body;
-  console.log("tring update:"+tournamentUpdate);
   try {
     const tournament=await Tournament.findByIdAndUpdate(tournamentUpdate._id, { $set: req.body })  // Update data from request body
 
@@ -59,7 +60,7 @@ const { _id } = req.body;
 
     return  res.json({ success: true, message: "Tournament Deleted Successfully" });
   } catch (error) {
-    console.error("Delete error:", error);
+    console.error(" Tournament Delete error:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
@@ -138,6 +139,48 @@ async function handleGetAllTeams(req, res) {
 
 }
 
+async function handleDeleteTeam(req,res){
+const id=req.params.id;
+
+
+ // Validate
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(422).json({ error: "Invalid Team ID format" });
+  }
+
+  try{
+
+    const TeamId = new mongoose.Types.ObjectId(id);
+    
+    const team=await Teams.findByIdAndDelete(TeamId);
+    if(!team){
+      return res.status(404).json({error:"Team Not Found"});
+    }
+
+    return res.json({ message: "Team deleted successfully" });  }
+catch (error) {
+    console.error("Team Delete error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+
+}
+async function handleUpdateTeam(req,res){
+
+    const teamUpdate = req.body;
+  try {
+    const team=await Teams.findByIdAndUpdate(teamUpdate._id, { $set: req.body })  // Update data from request body
+
+    if(!team){
+   return res.status(404).json({ error: "Team not found" });
+    }
+
+    return  res.json({ success: true, data:team, message: "Team Updated Successfully" });
+  } catch (error) {
+    console.error("Team Update error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
 module.exports = {
   handleCreateTournament,
   handleUpdateTournament,
@@ -146,4 +189,6 @@ module.exports = {
   handleGetTourById,
   handleCreateTeam,
   handleGetAllTeams,
+  handleDeleteTeam,
+  handleUpdateTeam,
 };
