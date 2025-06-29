@@ -6,14 +6,22 @@ import MyTimePicker from "./TimePicker";
 export const Match = () => {
   const host = "http://localhost:5000";
 
-  const [TeamA, setTeamA] = useState("Team A");
-  const [TeamB, setTeamB] = useState("Team B");
+  const [TeamA, setTeamA] = useState(null);
+  const [TeamB, setTeamB] = useState(null);
 
-  const [matchDate, setMatchDate] = useState("");
-  const [matchTime, setMatchTime] = useState("");
+  const [TeamA_id, setTeamA_id] = useState(null);
+  const [TeamB_id, setTeamB_id] = useState(null);
+
+  const[Teams,setTeams]=useState(null);
+  const[teamOpt,setTeamOptions]=useState(null);
+
+  const [matchDate, setMatchDate] = useState(null);
+  const [matchTime, setMatchTime] = useState(null);
 
   const [refresh, setRefresh] = useState(0);
   const [Data, setData] = useState(null);
+
+  const [tournament_id, setTour_id] = useState('6858f689885ec8b7a18a791e');
 
   //to styling and editing <select> <option>
   const [selectedOption, setSelectedOption] = useState(null);
@@ -29,12 +37,15 @@ export const Match = () => {
   // ];
 
   useEffect(() => {
-    fetchData();
+    fetchTournament();
     //to get tournament name from api and store to options
-  }, []);
+if(tournament_id){
+fetchTeam();
+}
+  }, [tournament_id]);
 
   //fetch table data
-  const fetchData = async () => {
+  const fetchTournament = async () => {
     const response = await fetch(`${host}/api/cricscore/tournament`, {
       method: "GET",
       credentials: "include",
@@ -51,6 +62,7 @@ export const Match = () => {
       const opts = result.data.map((t) => ({
         value: t.tournament_name,
         label: t.tournament_name,
+        tour_id: t._id,
       }));
       const venue1 = result.data.map((t) => ({
         value: t.venue,
@@ -58,9 +70,41 @@ export const Match = () => {
       }));
 
       setOptions(opts);
-      setVenus(venue1)
+      setVenus(venue1);
+
+
+
+
     } else {
       console.log("Tournament data  not get from backend:");
+    }
+    console.log(result.data);
+
+  };
+  const fetchTeam = async () => {
+    const response = await fetch(`${host}/api/cricscore/tournament/${tournament_id}/teams`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+
+    if (result.data) {
+      setTeams(result.data);
+      const opts = result.data.map((t) => ({
+        value: t.teamName,
+        label: t.teamName,
+        id:t._id,
+      }));
+
+
+      setTeamOptions(opts);
+    } else {
+      console.log("Team data  not get from backend:");
     }
     console.log(result.data);
   };
@@ -71,6 +115,8 @@ export const Match = () => {
 
     const tournament_name = selectedOption;
     var teamA = TeamA;
+    var teamA_id=TeamA_id;
+    var teamB_id=TeamB_id;
     var teamB = TeamB;
     const match_date = matchDate;
     var match_time = matchTime;
@@ -78,7 +124,7 @@ export const Match = () => {
 
     // Submit the form
 
-    const response = await fetch("http://localhost:5000/create/match", {
+    const response = await fetch("http://localhost:5000/api/cricscore/match/creatematch", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -89,6 +135,8 @@ export const Match = () => {
         tournament_name: `${tournament_name}`,
         teamA: `${teamA}`,
         teamB: `${teamB}`,
+        teamA_id:`${teamA_id}`,
+        teamB_id:`${teamB_id}`,
         match_date: `${match_date}`,
         match_time: `${match_time}`,
         venue: `${venue}`,
@@ -97,19 +145,22 @@ export const Match = () => {
     if (response.ok) {
       const data = await response.json();
 
-      console.log("submitted data:"+data.match);
+      console.log("submitted data:" + data.match);
+
+      alert(data.message);
       // navigate('/',{state:{user:data.user}});
     } else {
       console.log("Unable to create Match", response.status);
     }
   };
 
+
   return (
     <>
       <div className="login" style={{ height: "98vh" }}>
         <div className="form-container">
           <h2 style={{ textAlign: "center" }}>Create Match</h2>
-          <form >
+          <form onSubmit={handleSubmit}>
             <div
               className="form-group"
               style={{ zIndex: "3", position: "relative", fontWeight: "500" }}
@@ -117,11 +168,16 @@ export const Match = () => {
               <Select
                 id="name"
                 name="name"
-                options={options ? options:null}
+                options={options ? options : null}
                 value={
-                  options && options.find((opt) => opt.value === selectedOption) || null
+                  (options &&
+                    options.find((opt) => opt.value === selectedOption)) ||
+                  null
                 }
-                onChange={(opt) => setSelectedOption(opt?.value)}
+                onChange={(opt) => {
+                  setSelectedOption(opt?.value);
+                   setTour_id(opt?.tour_id);
+                }}
                 isClearable
                 placeholder="Tournament Name"
                 styles={{
@@ -142,11 +198,28 @@ export const Match = () => {
                 gap: "0.5rem",
               }}
             >
-              <input
-                type="text"
-                value={TeamA}
+              <Select
+                id="teamA"
+                className="team"
+                options={teamOpt ? teamOpt : null}
+                value={
+                  (teamOpt &&
+                    teamOpt.find((opt) => opt.value === TeamA)) ||
+                  null
+                }
+                onChange={(opt) => {setTeamA(opt?.value);
+                  setTeamA_id(opt?.id);
+                  console.log("id:"+opt?.id);
+                }}
+                isClearable
+                placeholder="Team A"
+                styles={{
+                  placeholder: (base) => ({
+                    ...base,
+                    color: "#888",
+                  }),
+                }}
                 required
-                onChange={(e) => setTeamA(e.target.value)}
               />
               <span
                 style={{
@@ -157,11 +230,28 @@ export const Match = () => {
               >
                 vs
               </span>
-              <input
-                type="text"
-                value={TeamB}
+              <Select
+                id="teamB"
+                className="team"
+                options={teamOpt ? teamOpt : null}
+                value={
+                  (teamOpt &&
+                    teamOpt.find((opt) => opt.value === TeamB)) ||
+                  null
+                }
+                onChange={(opt) => {setTeamB(opt?.value);
+                  setTeamB_id(opt?.id);
+                  console.log("id:"+opt?.id);
+                }}
+                isClearable
+                placeholder="Team B"
+                styles={{
+                  placeholder: (base) => ({
+                    ...base,
+                    color: "#888",
+                  }),
+                }}
                 required
-                onChange={(e) => setTeamB(e.target.value)}
               />
             </div>
 
@@ -173,8 +263,8 @@ export const Match = () => {
                 gap: "4.5rem",
               }}
             >
-              <CustomDateInput placeholder={"Match Date"} />
-              <MyTimePicker placeholder={"Time"} />
+              <CustomDateInput setMatchDate={setMatchDate} placeholder={"Match Date"} />
+              <MyTimePicker  onChange={setMatchTime} placeholder={"Time"} />
             </div>
 
             <div
@@ -184,9 +274,11 @@ export const Match = () => {
               <Select
                 id="description"
                 name="description"
-                options={venues ? venues :null}
+                options={venues ? venues : null}
                 value={
-                 venues && venues.find((opt) => opt.value === selectedVenue) || null
+                  (venues &&
+                    venues.find((opt) => opt.value === selectedVenue)) ||
+                  null
                 }
                 onChange={(opt) => setSelectedVenue(opt?.value)}
                 isClearable

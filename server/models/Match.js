@@ -1,8 +1,8 @@
 const mongoose=require("mongoose");
 const {Schema}=mongoose;
 
-
-const MatchSchema=new Schema({
+const MatchSchema=new Schema(
+    {
 
 tournament_name:{
     type:String,
@@ -14,6 +14,14 @@ teamA:{
 },
 teamB:{
     type:String,
+    required:true
+},
+teamA_id:{
+    type: mongoose.Schema.Types.ObjectId, ref: 'teams',
+    required:true
+},
+teamB_id:{
+    type:mongoose.Schema.Types.ObjectId, ref: 'teams',
     required:true
 },
 match_date:{
@@ -28,18 +36,15 @@ venue:{
     type:String,
     required:true
 },
-date:{
-    type:Date,
-    default:Date.now
-}
+ createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'scorers',
+      required: true,
+  
+},
 
-
-
-
-
-
-
-
-});
+    },
+{ timestamps: true }
+);
 
 module.exports=mongoose.model("Match",MatchSchema);

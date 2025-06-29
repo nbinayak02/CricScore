@@ -74,7 +74,7 @@ const CreateTournament = (props) => {
 
   return (
     <>
-      <div className="login" style={{ height: "98vh" }}>
+      <div className="login" style={{ height: "auto" }}>
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
