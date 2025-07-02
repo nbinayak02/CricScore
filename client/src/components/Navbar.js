@@ -83,7 +83,7 @@ export const Navbar = () => {
               <li className="nav-item dropdown">
                 <a
                   className={`nav-link dropdown-toggle "nav-link" ${
-                    location.pathname === "/match" ? "active" : ""
+                    (location.pathname === "/match" || location.pathname==="/viewmatch" ) ? "active" : ""
                   }`}
                   href="/"
                   role="button"
@@ -94,9 +94,9 @@ export const Navbar = () => {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="/">
+                    <Link className="dropdown-item" to="/viewmatch">
                       View All
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <Link
