@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/welcome.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Profile from './Profile';
 
 export const Welcome = () => {
 
@@ -81,6 +82,8 @@ export const Welcome = () => {
           </span>
         </div>
       </div>
+
+      <Profile/>
     </>
   );
 };
