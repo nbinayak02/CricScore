@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 import '../css/matchtable.css';
 
 const MatchTable = (props) => {
@@ -11,8 +11,8 @@ const MatchTable = (props) => {
 
   const navigate = useNavigate();
 
-  const handleNavigation = (tourId) => {
-    navigate(`/tournament/${tourId}`);
+  const handleLive = (item) => {
+    navigate('/scoring', {state:{match:item}});
   };
 
 
@@ -173,7 +173,7 @@ const MatchTable = (props) => {
                       style={{width:'max-content !important'}}
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => handleNavigation(item._id)}
+                        onClick={() => handleLive(item)}
                       >
                         Start Live
                       </button>
