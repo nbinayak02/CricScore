@@ -10,6 +10,7 @@ import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
 import ViewMatch from "./components/ViewMatch.js";
+import Profile from "./components/Profile.jsx";
 // import LoadingBar from "react-top-loading-bar"; 
 
  function App (){
@@ -35,6 +36,7 @@ import ViewMatch from "./components/ViewMatch.js";
         <Route path="/viewmatch" element={<ViewMatch />}/>
         <Route path="/scoring" element={<Scoring />} />
         <Route path="/tournament/:id" element={<SetupTournament />}/>
+        <Route path="/profile" element={<Profile/>}/>
       </Routes>
     </>
   );
