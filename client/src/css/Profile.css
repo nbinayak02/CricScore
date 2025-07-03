@@ -1,0 +1,47 @@
+/* Profile styling */
+
+.profile-card {
+    border-radius: 10px;
+    border: none;
+}
+.profile-header img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 3px solid #0d6efd;
+}
+.profile-header h2 {
+    color: #0d6efd;
+    font-weight: 600;
+}
+.profile-input {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+.profile-input:focus {
+    background-color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+.profile-save-btn {
+    padding: 8px 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.rounded-circle{
+
+  height: 171px !important;
+  width: 171px !important;
+}
+.profile-picture-container{
+    display: flex !important; 
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0px !important;
+  position: relative;
+}
+.position-absolute {
+  position: absolute !important;
+  bottom: 1rem !important;
+  right: 12.5rem;
+  border-radius: 50%;
+}
