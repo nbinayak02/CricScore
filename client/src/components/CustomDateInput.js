@@ -1,14 +1,32 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import "../css/DateInput.css"; // Optional: For CSS styling
 
-const CustomDateInput = ({ setMatchDate, onChange, id, placeholder }) => {
-  const [date, setDate] = useState("");
+const CustomDateInput = ({ start_date, Setstart_date, onChange, id, placeholder }) => {
   const inputRef = useRef(null);
+
+  // const formattedSetstart_date = new Date(Setstart_date).toISOString().split("T")[0];
+  const formattedstart_date = new Date(start_date);
+  // const formattedSetstart_date = new Date(Setstart_date).toISOString().split("T")[0];
 
   const [index, setindex] = useState(-1);
 
+ const [formattedDate, setFormattedDate] = useState(null);
+
+  useEffect(() => {
+    if (start_date) {
+      const d = new Date(start_date);
+      if (!isNaN(d)) {
+        const isoDate = d.toISOString().split("T")[0]; // "yyyy-MM-dd"
+        setFormattedDate(isoDate);
+      }
+      else{
+          setFormattedDate('');
+      }
+    }
+  }, [start_date]);
+
   const handlePlaceholderClick = () => {
-    setindex(1);
+    // setindex(1);
 
     if (inputRef.current) {
       inputRef.current.focus();
@@ -21,17 +39,17 @@ const CustomDateInput = ({ setMatchDate, onChange, id, placeholder }) => {
   };
 
   return (
-    <div className={`date-wrapper ${date ? "filled" : ""}`}>
+    <div className={`date-wrapper ${start_date ? "filled" : ""}`}>
       <input
-        style={{ zIndex: index }}
+        style={{ zIndex: formattedDate ? 2 : index}}
         id={id}
         type="date"
         ref={inputRef}
-        value={date}
+        value={formattedDate || ''}
         required
         onChange={(e) => {
-          setDate(e.target.value);
-          setMatchDate(e.target.value)
+          setFormattedDate(e.target.value);
+          Setstart_date(e.target.value);
           onChange?.(e.target.value);
         }}
       />

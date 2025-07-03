@@ -1,10 +1,18 @@
-import Table from "./Table";
-import { EditTournamet,CreateTournament } from "./CreateTournament";
-import { useState, useEffect, useRef } from "react";
 
-export const Tournament = () => {
+import MatchTable from "./MatchTable";
+import { EditTournamet,CreateTournament } from "./CreateTournament";
+import EditMatch from './EditMatch';
+import { useState, useEffect, useRef } from "react";
+import { Match } from "./Match";
+const ViewMatch=(props)=>{
+
+//fetching scorer id from the localstorage
+const userData = JSON.parse(localStorage.getItem("user"));
+const scorerId = userData.id || userData.scorer?.id || userData.user?.scorer?.id;
+
+
   const [refresh, setRefresh] = useState(0);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [isEdit,setisEdit]=useState(false);
   const host = "http://localhost:5000";
 const [editedData,setEditedData]=useState([]);
@@ -22,26 +30,31 @@ const [editedData,setEditedData]=useState([]);
 
   //fetch table data
   const fetchData = async () => {
-    const response = await fetch(`${host}/api/cricscore/tournament`, {
-      method: "GET",
+
+    const response = await fetch(`${host}/api/cricscore/match/getmatches`, {
+      method: "POST",
       credentials: "include",
       headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      body: JSON.stringify({
+        scorer_id:`${scorerId}`,
+      }),
     });
 
     const result = await response.json();
     setData(result.data);
+    console.log("Result"+result.data)
   };
 
   const handleClose=()=>{
-    setisEdit(false);
+      setisEdit(false);
     setEditedData(null);
   }
 
   return (
-    <div className="tournament-container">
+      <div className="tournament-container">
       <button
       id="create_tournament"
         type="button"
@@ -50,10 +63,10 @@ const [editedData,setEditedData]=useState([]);
         data-bs-target="#staticBackdrop"
         ref={modalref}
       >
-        Create Tournament
+        Create Match
       </button>
 
-      <Table openModal={openModal} setEditedData={setEditedData} setisEdit={setisEdit} data={data} refresh={refresh} setRefresh={setRefresh} />
+      <MatchTable openModal={openModal} setEditedData={setEditedData} setisEdit={setisEdit} data={data} refresh={refresh} setRefresh={setRefresh} />
 
       {/* modal */}
       <div
@@ -81,9 +94,9 @@ const [editedData,setEditedData]=useState([]);
             </div>
             <div className="modal-body">
               {/* if form === true show CreateTournament */}
-                {!isEdit  ? <CreateTournament data={data} refresh={refresh} setRefresh={setRefresh} />
+                {!isEdit ? <Match isEdit={true} data={data} refresh={refresh} setisEdit={setisEdit} setEditedData={setEditedData} setRefresh={setRefresh} />
                 :
-                <EditTournamet editedData={editedData} refresh={refresh} setRefresh={setRefresh} />
+                <EditMatch editedData={editedData} refresh={refresh} setRefresh={setRefresh} />
                 }
             </div>
             <div className="modal-footer">
@@ -102,3 +115,7 @@ const [editedData,setEditedData]=useState([]);
     </div>
   );
 };
+
+
+
+export default ViewMatch;

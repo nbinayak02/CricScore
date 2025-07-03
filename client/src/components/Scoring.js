@@ -58,9 +58,11 @@ const bowlers=[
   onChange={(opt) => setSelectedBastman1(opt?.value)}
   isClearable
   placeholder="Select Batsman"
+  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,
+        menuPortal: base => ({ ...base, zIndex: 9999 }) ,
       color: '#888',
       marginBottom:'10px',
     }),
@@ -74,10 +76,12 @@ const bowlers=[
   onChange={(opt) => setSelectedBastman2(opt?.value)}
   isClearable
   placeholder="Select <Batsman>"
+  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,
       color: '#888',
+        menuPortal: base => ({ ...base, zIndex: 9999 }) ,
       marginBottom:'10px',
     }),
   }}
@@ -93,9 +97,11 @@ const bowlers=[
   onChange={(opt) => setSelectedbowler(opt?.value)}
   isClearable
   placeholder="Select Bowler"
+  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,
+        menuPortal: base => ({ ...base, zIndex: 9999 }) ,
       color: '#888',
       marginBottom:'10px',
     }),

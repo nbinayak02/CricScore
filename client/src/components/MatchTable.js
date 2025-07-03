@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import '../css/matchtable.css';
 
-const Table = (props) => {
+const MatchTable = (props) => {
   const [editId, setEditId] = useState(null);
   const [editedData, setEditedData] = useState(null);
   
@@ -13,6 +14,18 @@ const Table = (props) => {
   const handleNavigation = (tourId) => {
     navigate(`/tournament/${tourId}`);
   };
+
+
+  //function to format time
+  const formatTimeTo12Hour = (timeStr) => {
+  if (!timeStr || typeof timeStr !== "string") return "";
+
+  const [hourStr, minuteStr] = timeStr.split(":");
+  let hour = parseInt(hourStr, 10);
+  const ampm = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12 || 12; // convert 0 -> 12
+  return `${hour}:${minuteStr} ${ampm}`;
+};
   // const handleEdit = (item) => {
   //   props.setisEdit(true);
   //   setEditId(item._id);
@@ -34,7 +47,7 @@ const Table = (props) => {
     const isConfirm = window.confirm("You are sure to delete?");
     
     if (isConfirm) {
-      const response = await fetch(`${host}/api/cricscore/tournament/delete`, {
+      const response = await fetch(`${host}/api/cricscore/match/deletematch`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -121,12 +134,11 @@ const Table = (props) => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Tournament Name</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
+            <th scope="col">Team A</th>
+            <th scope="col">Team B</th>
+            <th scope="col">Match Date</th>
+            <th scope="col">Match Time</th>
             <th scope="col">Venue</th>
-            <th scope="col">Location</th>
-            <th scope="col">Format</th>
-            <th scope="col">Organizers</th>
             <th scope="col" colSpan={3}>
               Action
             </th>
@@ -143,43 +155,27 @@ const Table = (props) => {
                       item.tournament_name
                     }
                   </td>
+                  <td>{item.teamA}</td>
+                  <td>{item.teamB}</td>
                   <td>
                     {
-                      new Date(item.start_date).toDateString()
+                      new Date(item.match_date).toDateString()
                     }
                   </td>
-                  <td>
-                    {
-                      new Date(item.end_date).toDateString()
-                    }
-                  </td>
+        <td>{formatTimeTo12Hour(item.match_time)}</td>
                   <td>
                     {
                       item.venue
                     }
                   </td>
                   <td>
-                    {
-                      item.location
-                    }
-                  </td>
-                  <td>
-                    {
-                      item.format
-                    }
-                  </td>
-                  <td>
-                    {
-                      item.organizer || "-"
-                    }
-                  </td>
-                  <td>
-                      <button
+                      <button id="live_btn"
+                      style={{width:'max-content !important'}}
                         type="button"
                         className="btn btn-primary"
                         onClick={() => handleNavigation(item._id)}
                       >
-                        Setup
+                        Start Live
                       </button>
                     
                   </td>
@@ -209,4 +205,4 @@ const Table = (props) => {
   );
 };
 
-export default Table;
+export default MatchTable;
