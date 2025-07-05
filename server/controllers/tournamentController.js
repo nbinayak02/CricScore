@@ -180,6 +180,29 @@ async function handleUpdateTeam(req,res){
     res.status(500).json({ error: "Server error" });
   }
 }
+async function handleGetTeamById(req, res) {
+  const { id } = req.params;
+
+  // Validate MongoDB ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid team ID format." });
+  }
+  
+  try {
+    const teamid= new mongoose.Types.ObjectId(id);
+    
+    const team = await Team.findById(teamid);
+    if (!team) {
+      return res.status(404).json({ error: "Team not found." });
+    }
+
+    return res.status(200).json({ data: team, message: "Team fetch successful." });
+
+  } catch (error) {
+    console.error("Error fetching team:", error);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+}
 
 module.exports = {
   handleCreateTournament,
@@ -191,4 +214,5 @@ module.exports = {
   handleGetAllTeams,
   handleDeleteTeam,
   handleUpdateTeam,
+  handleGetTeamById,
 };

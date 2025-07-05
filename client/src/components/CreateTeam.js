@@ -133,7 +133,7 @@ const handleModalClose = () => {
 
             <div className="form-group">
               <input type="submit"style={{background:'#0d6efd'}} className="btn btn_primary" value="Update Team" />
-              <button className="btn btn_danger" onClick={handleModalClose}>Cancel</button>
+              {/* <button className="btn btn_danger" onClick={handleModalClose}>Cancel</button> */}
             </div>
           </form>
         </div>

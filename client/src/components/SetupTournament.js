@@ -10,20 +10,25 @@ const SetupTournament = () => {
 
   //to run the model when editbutton is clicked
     const modalRef = useRef();
+
+    
+    
+    const params = useParams();
+    const tourId = params.id;
+    const host = "http://localhost:5000";
+    const [refresh, setRefresh] = useState(0);
+    const [tourData, setTourData] = useState([]);
+    const [teamData, setTeamData] = useState([]);
+    const [isEdit,setIsEdit]=useState(false);
+    const[EditTeamId,setEditTeamId]=useState(null);
+    const[Editteam,setEditTeam]=useState(null);
+
+    
     const openModal = () => {
+      setIsEdit(true);
   modalRef.current.click();
 };
 
-
-  const params = useParams();
-  const tourId = params.id;
-  const host = "http://localhost:5000";
-  const [refresh, setRefresh] = useState(0);
-  const [tourData, setTourData] = useState([]);
-  const [teamData, setTeamData] = useState([]);
-  const [isEdit,setIsEdit]=useState(false);
-  const[EditTeamId,setEditTeamId]=useState(null);
-  const[Editteam,setEditTeam]=useState(null);
 
   useEffect(() => {
     fetchTourData();
@@ -34,6 +39,13 @@ const SetupTournament = () => {
     fetchTeamData();
   }, [refresh]);
 
+
+  //to handle cancel button click
+  const handleModalClose = () => {
+  setIsEdit(false);
+  setEditTeam(null);
+  setEditTeamId(null);
+};
   const fetchTourData = async () => {
     const response = await fetch(`${host}/api/cricscore/tournament/${tourId}`, {
       method: "GET",
@@ -96,6 +108,7 @@ const SetupTournament = () => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={handleModalClose}
               ></button>
             </div>
             <div className="modal-body">
@@ -111,6 +124,7 @@ const SetupTournament = () => {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                onClick={handleModalClose}
               >
                 Cancel
               </button>
