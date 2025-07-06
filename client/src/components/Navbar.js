@@ -80,42 +80,26 @@ export const Navbar = () => {
                   Tournaments
                 </Link>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className={`nav-link dropdown-toggle "nav-link" ${
-                    (location.pathname === "/match" || location.pathname==="/viewmatch" ) ? "active" : ""
+
+               <li className="nav-item">
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/viewmatch" ? "active" : ""
                   }`}
-                  href="/"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  onClick={() => handleNavClick("/viewmatch")}
+                  to="/viewmatch"
                 >
-                  Matches
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to="/viewmatch">
-                      View All
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      onClick={() => handleNavClick("/match")}
-                      to="/match"
-                    >
-                      Create Match
-                    </Link>
-                  </li>
-                </ul>
+                  Fixtures
+                </Link>
               </li>
+
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/scoring" ? "active" : ""
+                    location.pathname === "/profile" ? "active" : ""
                   }`}
-                  onClick={() => handleNavClick("/scoring")}
-                  to="/scoring"
+                  onClick={() => handleNavClick("/profile")}
+                  to="/profile"
                 >
                   Profile
                 </Link>
