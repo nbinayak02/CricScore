@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import "../css/welcome.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import '../css/loading.css';
 
 export const Welcome = () => {
 
   //location is use to get the data passed using navigate
   const navigate = useNavigate();
+
+
+   const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
 
   const storedUser = localStorage.getItem("user");
   const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
@@ -15,7 +20,20 @@ export const Welcome = () => {
 
   useEffect(() => {
 
-  
+      setLoading(true);
+       setProgress(20); // Start slow
+
+           const interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+
+
+          setProgress(100);
+             setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400);
 
     if (!user) {
       navigate("/login");
@@ -26,6 +44,11 @@ export const Welcome = () => {
   return (
 
     <>
+{loading && (
+  <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>)}
+    
       <div style={{ marginLeft: "2rem" }}>
         {user && (
           <div id="user_name">

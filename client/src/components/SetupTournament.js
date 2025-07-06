@@ -11,7 +11,8 @@ const SetupTournament = () => {
   //to run the model when editbutton is clicked
     const modalRef = useRef();
 
-    
+     const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
     
     const params = useParams();
     const tourId = params.id;
@@ -23,6 +24,8 @@ const SetupTournament = () => {
     const[EditTeamId,setEditTeamId]=useState(null);
     const[Editteam,setEditTeam]=useState(null);
 
+    var interval=null;
+
     
     const openModal = () => {
       setIsEdit(true);
@@ -31,6 +34,13 @@ const SetupTournament = () => {
 
 
   useEffect(() => {
+        setLoading(true);
+       setProgress(20); // Start slow
+
+            interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+
     fetchTourData();
   }, [refresh]);
   
@@ -57,7 +67,15 @@ const SetupTournament = () => {
     });
 
     const result = await response.json();
+    
     setTourData(result.data);
+    setProgress(100);
+
+              setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400); 
   };
 
   const fetchTeamData = async () => {
@@ -75,6 +93,14 @@ const SetupTournament = () => {
   };
 
   return (
+
+    <>
+
+    {loading && (
+  <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>
+)}
     <div className="setup">
       <TournamentCard tourData={tourData} />
       <button
@@ -96,7 +122,7 @@ const SetupTournament = () => {
         tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
-      >
+        >
         <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
@@ -125,7 +151,7 @@ const SetupTournament = () => {
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
                 onClick={handleModalClose}
-              >
+                >
                 Cancel
               </button>
             </div>
@@ -134,6 +160,7 @@ const SetupTournament = () => {
       </div>
       <TeamTable openModal={openModal} setIsEdit={setIsEdit} setEditTeam={setEditTeam} setEditTeamId={setEditTeamId} refresh={refresh} setRefresh={setRefresh} data={teamData}/>
     </div>
+                </>
   );
 };
 

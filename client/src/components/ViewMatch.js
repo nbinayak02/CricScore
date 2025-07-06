@@ -11,6 +11,9 @@ const userData = JSON.parse(localStorage.getItem("user"));
 const scorerId = userData.id || userData.scorer?.id || userData.user?.scorer?.id;
 
 
+     const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
+
   const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState(null);
   const [isEdit,setisEdit]=useState(false);
@@ -18,7 +21,21 @@ const scorerId = userData.id || userData.scorer?.id || userData.user?.scorer?.id
 const [editedData,setEditedData]=useState([]);
   //fetch when first page loads + when refresh is set
   useEffect(() => {
+            setLoading(true);
+       setProgress(20); // Start slow
     fetchData();
+    
+          const  interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+
+        setProgress(100);
+
+              setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400); 
   }, [refresh]);
 
   const modalref=useRef(null);
@@ -54,14 +71,22 @@ const [editedData,setEditedData]=useState([]);
   }
 
   return (
+
+    <>
+
+        {loading && (
+  <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>)}
+
       <div className="tournament-container">
       <button
       id="create_tournament"
-        type="button"
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-        ref={modalref}
+      type="button"
+      className="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+      ref={modalref}
       >
         Create Match
       </button>
@@ -90,14 +115,14 @@ const [editedData,setEditedData]=useState([]);
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={handleClose}
-              ></button>
+                ></button>
             </div>
             <div className="modal-body">
               {/* if form === true show CreateTournament */}
                 {!isEdit ? <Match isEdit={true} data={data} refresh={refresh} setisEdit={setisEdit} setEditedData={setEditedData} setRefresh={setRefresh} />
                 :
                 <EditMatch editedData={editedData} refresh={refresh} setRefresh={setRefresh} />
-                }
+              }
             </div>
             <div className="modal-footer">
               <button
@@ -105,7 +130,7 @@ const [editedData,setEditedData]=useState([]);
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
                 onClick={handleClose}
-              >
+                >
                 Close
               </button>
             </div>
@@ -113,6 +138,7 @@ const [editedData,setEditedData]=useState([]);
         </div>
       </div>
     </div>
+                </>
   );
 };
 

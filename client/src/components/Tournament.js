@@ -3,6 +3,10 @@ import { EditTournamet,CreateTournament } from "./CreateTournament";
 import { useState, useEffect, useRef } from "react";
 
 export const Tournament = () => {
+
+     const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
+
   const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState([]);
   const [isEdit,setisEdit]=useState(false);
@@ -10,6 +14,8 @@ export const Tournament = () => {
 const [editedData,setEditedData]=useState([]);
   //fetch when first page loads + when refresh is set
   useEffect(() => {
+        setLoading(true);
+       setProgress(20); // Start slow
     fetchData();
   }, [refresh]);
 
@@ -22,6 +28,7 @@ const [editedData,setEditedData]=useState([]);
 
   //fetch table data
   const fetchData = async () => {
+    setProgress(40);
     const response = await fetch(`${host}/api/cricscore/tournament`, {
       method: "GET",
       credentials: "include",
@@ -31,8 +38,19 @@ const [editedData,setEditedData]=useState([]);
       },
     });
 
+               const interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+
     const result = await response.json();
+
     setData(result.data);
+    setProgress(100);
+   setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400); 
   };
 
   const handleClose=()=>{
@@ -41,10 +59,15 @@ const [editedData,setEditedData]=useState([]);
   }
 
   return (
+<>
+    {loading && (
+      <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>)}
     <div className="tournament-container">
       <button
       id="create_tournament"
-        type="button"
+      type="button"
         className="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
@@ -64,7 +87,7 @@ const [editedData,setEditedData]=useState([]);
         tabIndex={-1}
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
-      >
+        >
         <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
@@ -77,7 +100,7 @@ const [editedData,setEditedData]=useState([]);
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={handleClose}
-              ></button>
+                ></button>
             </div>
             <div className="modal-body">
               {/* if form === true show CreateTournament */}
@@ -100,5 +123,6 @@ const [editedData,setEditedData]=useState([]);
         </div>
       </div>
     </div>
+                </>
   );
 };
