@@ -8,6 +8,10 @@ tournament_name:{
     type:String,
     required:true
 },
+tournament_id:{
+    type:mongoose.Schema.Types.ObjectId, ref:"tournaments",
+    required:true
+},
 teamA:{
     type:String,
     required:true

@@ -3,7 +3,7 @@ import "../css/match.css";
 import Select from "react-select";
 import CustomDateInput from "./CustomDateInput";
 import MyTimePicker from "./TimePicker";
-export const Match = () => {
+export const Match = (props) => {
   const host = "http://localhost:5000";
 
   const [TeamA, setTeamA] = useState(null);
@@ -12,8 +12,8 @@ export const Match = () => {
   const [TeamA_id, setTeamA_id] = useState(null);
   const [TeamB_id, setTeamB_id] = useState(null);
 
-  const[Teams,setTeams]=useState(null);
-  const[teamOpt,setTeamOptions]=useState(null);
+  const [Teams, setTeams] = useState(null);
+  const [teamOpt, setTeamOptions] = useState(null);
 
   const [matchDate, setMatchDate] = useState(null);
   const [matchTime, setMatchTime] = useState(null);
@@ -21,7 +21,7 @@ export const Match = () => {
   const [refresh, setRefresh] = useState(0);
   const [Data, setData] = useState(null);
 
-  const [tournament_id, setTour_id] = useState('6858f689885ec8b7a18a791e');
+  const [tournament_id, setTour_id] = useState(null);
 
   //to styling and editing <select> <option>
   const [selectedOption, setSelectedOption] = useState(null);
@@ -31,18 +31,15 @@ export const Match = () => {
 
   const [selectedVenue, setSelectedVenue] = useState(null);
 
-  // const venues = [
-  //   { value: "Biratnagar", label: "Biratnagar cricket Stadium" },
-  //   { value: "Birtamod", label: "Birtamod cricket Stadium" },
-  // ];
-
   useEffect(() => {
     fetchTournament();
-    //to get tournament name from api and store to options
-if(tournament_id){
-fetchTeam();
-}
-  }, [tournament_id]);
+  }, []); // only once on mount
+
+  useEffect(() => {
+    if (tournament_id) {
+      fetchTeam();
+    }
+  }, [tournament_id]); // run when tournament_id changes
 
   //fetch table data
   const fetchTournament = async () => {
@@ -71,25 +68,23 @@ fetchTeam();
 
       setOptions(opts);
       setVenus(venue1);
-
-
-
-
     } else {
       console.log("Tournament data  not get from backend:");
     }
     console.log(result.data);
-
   };
   const fetchTeam = async () => {
-    const response = await fetch(`${host}/api/cricscore/tournament/${tournament_id}/teams`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${host}/api/cricscore/tournament/${tournament_id}/teams`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const result = await response.json();
 
@@ -98,9 +93,8 @@ fetchTeam();
       const opts = result.data.map((t) => ({
         value: t.teamName,
         label: t.teamName,
-        id:t._id,
+        id: t._id,
       }));
-
 
       setTeamOptions(opts);
     } else {
@@ -113,51 +107,76 @@ fetchTeam();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const tournament_name = selectedOption;
-    var teamA = TeamA;
-    var teamA_id=TeamA_id;
-    var teamB_id=TeamB_id;
-    var teamB = TeamB;
+    const tournament_name = selectedOption?.value || "";
+    const tournament_id1 = tournament_id;
+    const teamA = TeamA?.value || "";
+    var teamA_id = TeamA_id;
+    const teamB = TeamB?.value || "";
+    var teamB_id = TeamB_id;
     const match_date = matchDate;
     var match_time = matchTime;
-    const venue = selectedVenue;
+    const venue = selectedVenue?.value || "";
 
     // Submit the form
 
-    const response = await fetch("http://localhost:5000/api/cricscore/match/creatematch", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tournament_name: `${tournament_name}`,
-        teamA: `${teamA}`,
-        teamB: `${teamB}`,
-        teamA_id:`${teamA_id}`,
-        teamB_id:`${teamB_id}`,
-        match_date: `${match_date}`,
-        match_time: `${match_time}`,
-        venue: `${venue}`,
-      }),
-    });
+    const response = await fetch(
+      "http://localhost:5000/api/cricscore/match/creatematch",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tournament_name: `${tournament_name}`,
+          tournament_id: `${tournament_id1}`,
+          teamA: `${teamA}`,
+          teamB: `${teamB}`,
+          teamA_id: `${teamA_id}`,
+          teamB_id: `${teamB_id}`,
+          match_date: `${match_date}`,
+          match_time: `${match_time}`,
+          venue: `${venue}`,
+        }),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
 
       console.log("submitted data:" + data.match);
 
       alert(data.message);
+
+      if (props.setRefresh) {
+        props.setRefresh(props.refresh + 1);
+      }
+      //setting the data to null
+      if (props.setEditedData) {
+        props.setEditedData(null);
+      }
+      if (props.setisEdit) {
+        props.setisEdit(false);
+      }
+
+      //setting all states to null after creating match
+      setTeamA(null);
+      setTeamB(null);
+      setTeamA_id(null);
+      setTeamB_id(null);
+      setMatchDate(null);
+      setMatchTime(null);
+      setSelectedVenue(null);
+      setSelectedOption(null);
       // navigate('/',{state:{user:data.user}});
     } else {
       console.log("Unable to create Match", response.status);
     }
   };
 
-
   return (
     <>
-      <div className="login" style={{ height: "98vh" }}>
+      <div className="login" style={{ height: props.isEdit ? "auto" : "98vh" }}>
         <div className="form-container">
           <h2 style={{ textAlign: "center" }}>Create Match</h2>
           <form onSubmit={handleSubmit}>
@@ -166,21 +185,17 @@ fetchTeam();
               style={{ zIndex: "3", position: "relative", fontWeight: "500" }}
             >
               <Select
-                id="name"
-                name="name"
-                options={options ? options : null}
-                value={
-                  (options &&
-                    options.find((opt) => opt.value === selectedOption)) ||
-                  null
-                }
+                options={options}
+                value={selectedOption}
                 onChange={(opt) => {
-                  setSelectedOption(opt?.value);
-                   setTour_id(opt?.tour_id);
+                  setSelectedOption(opt);
+                  setTour_id(opt?.tour_id);
                 }}
                 isClearable
-                placeholder="Tournament Name"
+                placeholder="Tournament"
+                menuPortalTarget={document.body}
                 styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   placeholder: (base) => ({
                     ...base,
                     color: "#888",
@@ -199,21 +214,17 @@ fetchTeam();
               }}
             >
               <Select
-                id="teamA"
-                className="team"
-                options={teamOpt ? teamOpt : null}
-                value={
-                  (teamOpt &&
-                    teamOpt.find((opt) => opt.value === TeamA)) ||
-                  null
-                }
-                onChange={(opt) => {setTeamA(opt?.value);
+                options={teamOpt}
+                value={TeamA}
+                onChange={(opt) => {
+                  setTeamA(opt);
                   setTeamA_id(opt?.id);
-                  console.log("id:"+opt?.id);
                 }}
                 isClearable
-                placeholder="Team A"
+                placeholder="TeamA"
+                menuPortalTarget={document.body}
                 styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   placeholder: (base) => ({
                     ...base,
                     color: "#888",
@@ -221,6 +232,7 @@ fetchTeam();
                 }}
                 required
               />
+
               <span
                 style={{
                   display: "flex",
@@ -231,21 +243,17 @@ fetchTeam();
                 vs
               </span>
               <Select
-                id="teamB"
-                className="team"
-                options={teamOpt ? teamOpt : null}
-                value={
-                  (teamOpt &&
-                    teamOpt.find((opt) => opt.value === TeamB)) ||
-                  null
-                }
-                onChange={(opt) => {setTeamB(opt?.value);
+                options={teamOpt}
+                value={TeamB}
+                onChange={(opt) => {
+                  setTeamB(opt);
                   setTeamB_id(opt?.id);
-                  console.log("id:"+opt?.id);
                 }}
                 isClearable
-                placeholder="Team B"
+                placeholder="TeamB"
+                menuPortalTarget={document.body}
                 styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   placeholder: (base) => ({
                     ...base,
                     color: "#888",
@@ -263,8 +271,17 @@ fetchTeam();
                 gap: "4.5rem",
               }}
             >
-              <CustomDateInput setMatchDate={setMatchDate} placeholder={"Match Date"} />
-              <MyTimePicker  onChange={setMatchTime} placeholder={"Time"} />
+              <CustomDateInput
+                start_date={matchDate}
+                Setstart_date={setMatchDate}
+                setMatchDate={setMatchDate}
+                placeholder={"Match Date"}
+              />
+              <MyTimePicker
+                match_time={matchTime}
+                onChange={setMatchTime}
+                placeholder={"Time"}
+              />
             </div>
 
             <div
@@ -274,16 +291,14 @@ fetchTeam();
               <Select
                 id="description"
                 name="description"
-                options={venues ? venues : null}
-                value={
-                  (venues &&
-                    venues.find((opt) => opt.value === selectedVenue)) ||
-                  null
-                }
-                onChange={(opt) => setSelectedVenue(opt?.value)}
+                options={venues}
+                value={selectedVenue}
+                onChange={(opt) => setSelectedVenue(opt)}
                 isClearable
                 placeholder="Ground Name/Venue"
+                menuPortalTarget={document.body}
                 styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   placeholder: (base) => ({
                     ...base,
                     color: "#888",
