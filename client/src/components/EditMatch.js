@@ -44,7 +44,7 @@ export const EditMatch = (props) => {
       setvenue(ed.venue);
       setSelectedOption(ed.tournament_name);
       setSelectedVenue(ed.venue);
-      setTour_id(ed.tournament_id); 
+      setTour_id(ed.tournament_id);
     }
   }, [props.editedData]);
 
@@ -174,54 +174,6 @@ export const EditMatch = (props) => {
     }
   };
 
-  // function to handle submit
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const tournament_name = selectedOption;
-  //   var tournament_id1=tournament_id;
-  //   var teamA1 = teamA;
-  //   var teamB1=teamB;
-  //   var teamA_id1=teamA_id;
-  //   var teamB_id1=teamB_id;
-  //   const match_date1 = match_date;
-  //   var match_time1 = match_time;
-  //   const venue1 = venue;
-
-  //   // Submit the form
-
-  //   const response = await fetch("http://localhost:5000/api/cricscore/match/update", {
-  //     method: "PUT",
-  //     credentials: "include",
-  //     headers: {
-  //       Accept: "*/*",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       _id:`${matchId}`,
-  //       tournament_name: `${tournament_name}`,
-  //       tournament_id:`${tournament_id1}`,
-  //       teamA: `${teamA1}`,
-  //       teamB: `${teamB1}`,
-  //       teamA_id:`${teamA_id1}`,
-  //       teamB_id:`${teamB_id1}`,
-  //       match_date: `${match_date1}`,
-  //       match_time: `${match_time1}`,
-  //       venue: `${venue1}`,
-  //     }),
-  //   });
-  //   if (response.ok) {
-  //     const data = await response.json();
-
-  //     console.log("updated data:" + data.match);
-
-  //     props.setRefresh(props.refresh+1);
-  //     alert(data.message);
-  //     // navigate('/',{state:{user:data.user}});
-  //   } else {
-  //     console.log("Unable to edit Match", response.status);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -234,30 +186,27 @@ export const EditMatch = (props) => {
     const match_date1 = match_date;
     const match_time1 = match_time;
     const venue1 = selectedVenue || "";
-
-    const response = await fetch(
-      "http://localhost:5000/api/cricscore/match/update",
-      {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id: matchId,
-          tournament_name: tournament_name1,
-          tournament_id: tournament_id1,
-          teamA: teamA1,
-          teamB: teamB1,
-          teamA_id: teamA_id1,
-          teamB_id: teamB_id1,
-          match_date: match_date1,
-          match_time: match_time1,
-          venue: venue1,
-        }),
-      }
-    );
+    const host = process.env.REACT_APP_HOST_URI;
+    const response = await fetch(`${host}/api/cricscore/match/${matchId}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: matchId,
+        tournament_name: tournament_name1,
+        tournament_id: tournament_id1,
+        teamA: teamA1,
+        teamB: teamB1,
+        teamA_id: teamA_id1,
+        teamB_id: teamB_id1,
+        match_date: match_date1,
+        match_time: match_time1,
+        venue: venue1,
+      }),
+    });
 
     if (response.ok) {
       const data = await response.json();
