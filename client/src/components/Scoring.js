@@ -1,42 +1,136 @@
-import React, { useState } from "react";
+import { useState,useEffect, } from "react";
 import'../css/scoring.css';
 import Select from 'react-select';
+import { useLocation,useNavigate } from "react-router-dom";
 export const Scoring=()=>{
-  const [TeamA,setTeamA]=useState('Team A');
-  const [TeamB,setTeamB]=useState('Team B');
 
+
+   const storedUser = localStorage.getItem("user");
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null);
+  const navigate = useNavigate(); 
+
+  
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+
+  }, [user]);
+
+    const host = "http://localhost:5000";
+
+  const location=useLocation();
+ const { match }= location.state || {};
+
+
+const teamA_id=match.teamA_id;
+const teamB_id=match.teamB_id;
+
+ console.log(match.tournament_name);
+ console.log(match._id);
+ console.log("Team A id:"+match.teamA_id);
+ console.log("Team B id:"+match.teamA_id);
+
+  const [TeamA,setTeamA]=useState(null);
+  const [TeamB,setTeamB]=useState(null);
+
+
+  // setting the Team na to board if state is present
+  // {match? setTeamA(match.TeamA) : setTeamA('Team A')};
+  // {match? setTeamB(match.TeamA) : setTeamB('Team B')};
+
+  // /:id/get
 
   //to styling and editing <select> <option>
   const [selectedBastman1, setSelectedBastman1] = useState(null); 
   const [selectedBastman2, setSelectedBastman2] = useState(null); 
 
-  const Battingoptions = [
-  { value: 'Aarif Sheikh', label: 'Aarif Sheikh' },
-  { value: 'Dipendra Singh Airee', label: 'Dipendra Singh Airee' },
-  { value: 'Kushal Bhurtel', label: 'Kushal Bhurtel' },
-  { value: 'Sandeep Lamichhane', label: 'Sandeep Lamichhane' },
-];
+  const [Battingoptions,setBattingoptions] = useState(null)
+  const [bowlers,setbowlers]=useState(null);
+//   [
+//   { value: 'Aarif Sheikh', label: 'Aarif Sheikh' },
+//   { value: 'Dipendra Singh Airee', label: 'Dipendra Singh Airee' },
+//   { value: 'Kushal Bhurtel', label: 'Kushal Bhurtel' },
+//   { value: 'Sandeep Lamichhane', label: 'Sandeep Lamichhane' },
+// ];
 
 const [selectedbowler, setSelectedbowler] = useState(null); 
-const bowlers=[
-  { value: 'Dipendra Singh Airee', label: 'Dipendra Singh Airee' },
-  { value: 'Kushal Bhurtel', label: 'Kushal Bhurtel' },
-  { value: 'Sandeep Lamichhane', label: 'Sandeep Lamichhane' },
-];
+//   { value: 'Dipendra Singh Airee', label: 'Dipendra Singh Airee' },
+//   { value: 'Kushal Bhurtel', label: 'Kushal Bhurtel' },
+//   { value: 'Sandeep Lamichhane', label: 'Sandeep Lamichhane' },
+// ];
+
+ const fetchTeamAData = async () => {
+    const response = await fetch(`${host}/api/cricscore/tournament/${teamA_id}/get`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+    
+        const result = await response.json();
+ const team=result.data;
+    setTeamA(team);
+
+   // 👇 Convert comma-separated squad string to [{value, label}]
+  if (team && team.squad) {
+    const squadArray = team.squad.split(',').map(player => player.trim());
+    const battingOptions = squadArray.map(player => ({
+      value: player,
+      label: player,
+    }));
+    setbowlers(battingOptions); // You should have a state for this
+  };
+
+}
+ const fetchTeamBData = async () => {
+    const response = await fetch(`${host}/api/cricscore/tournament/${teamB_id}/get`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    const team=result.data;
+    setTeamB(team);
+
+   // 👇 Convert comma-separated squad string to [{value, label}]
+  if (team && team.squad) {
+    const squadArray = team.squad.split(',').map(player => player.trim());
+    const battingOptions = squadArray.map(player => ({
+      value: player,
+      label: player,
+    }));
+    setBattingoptions(battingOptions); // You should have a state for this
+  };
+}
+
+ useEffect(() => {
+ fetchTeamAData();
+ fetchTeamBData();
+ }, [match]);
+ 
 
 
   return (
 
 <>
 
-<div className="login" style={{height: '98vh'}}>
+<div className="login" style={{height: '93vh'}}>
         <div className="form-container">
+          <h1 style={{alignItems:'center',textAlign:'center',marginBottom:'3rem',marginTop:'1.5rem'}}> {match ? match.tournament_name : " "}</h1>
             <div id="scoring_head" className="scoring_head">
-            <h2 style={{textAlign:'start'}}>Scoring</h2>
+            <h2 style={{textAlign:'start',color:'#212529'}}>Scoring</h2>
              <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                <span>{TeamA}</span>
+                <span>{ TeamA? TeamA.teamName : 'Team A' }</span>
                 <span style={{marginLeft:'0.3rem',marginRight:'0.3rem'}}> vs </span>
-                <span>{TeamB}</span>
+                <span>{TeamB ? TeamB.teamName :'Team B'}</span>
              </div>
             </div>
             <div style={{  width:'auto',borderBottom: '2px solid gray', borderWidth:'medium'}}/>
@@ -53,12 +147,11 @@ const bowlers=[
 
 <Select
   id="batsman1" name="batsman1"
-  options={Battingoptions}
-  value={Battingoptions.find(opt => opt.value === selectedBastman1) || null}
+  options={Battingoptions?Battingoptions:null}
+  value={Battingoptions?Battingoptions.find(opt => opt.value === selectedBastman1) || null  :null}
   onChange={(opt) => setSelectedBastman1(opt?.value)}
   isClearable
   placeholder="Select Batsman"
-  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,
@@ -71,12 +164,11 @@ const bowlers=[
 />
 <Select
   id="batsman2" name="batsman2"
-  options={Battingoptions}
-  value={Battingoptions.find(opt => opt.value === selectedBastman2) || null}
+  options={Battingoptions?Battingoptions:null}
+  value={Battingoptions? Battingoptions.find(opt => opt.value === selectedBastman2) || null :null} 
   onChange={(opt) => setSelectedBastman2(opt?.value)}
   isClearable
   placeholder="Select <Batsman>"
-  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,
@@ -92,12 +184,11 @@ const bowlers=[
 
 <Select
   id="bowler" name="bowler"
-  options={bowlers}
-  value={bowlers.find(opt => opt.value === selectedbowler) || null}
+  options={bowlers?bowlers:null}
+  value={bowlers?bowlers.find(opt => opt.value === selectedbowler) || null:null}
   onChange={(opt) => setSelectedbowler(opt?.value)}
   isClearable
   placeholder="Select Bowler"
-  menuPortalTarget={document.body}
   styles={{
     placeholder: (base) => ({
       ...base,

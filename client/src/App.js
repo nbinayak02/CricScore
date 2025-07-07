@@ -27,7 +27,7 @@ import ViewMatch from "./components/ViewMatch.js";
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<Welcome />}  />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/tournament" element={<Tournament />} />
@@ -36,6 +36,8 @@ import ViewMatch from "./components/ViewMatch.js";
         <Route path="/scoring" element={<Scoring />} />
         <Route path="/tournament/:id" element={<SetupTournament />}/>
       </Routes>
+      
+      
     </>
   );
 }

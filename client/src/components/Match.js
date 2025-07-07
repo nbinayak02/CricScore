@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../css/match.css";
 import Select from "react-select";
 import CustomDateInput from "./CustomDateInput";
@@ -18,7 +18,7 @@ export const Match = (props) => {
   const [matchDate, setMatchDate] = useState(null);
   const [matchTime, setMatchTime] = useState(null);
 
-  const [refresh, setRefresh] = useState(0);
+  // const [refresh, setRefresh] = useState(0);
   const [Data, setData] = useState(null);
 
   const [tournament_id, setTour_id] = useState(null);
@@ -178,7 +178,7 @@ export const Match = (props) => {
     <>
       <div className="login" style={{ height: props.isEdit ? "auto" : "98vh" }}>
         <div className="form-container">
-          <h2 style={{ textAlign: "center" }}>Create Match</h2>
+          <h2 style={{ textAlign: "center" }}>Create Fixture</h2>
           <form onSubmit={handleSubmit}>
             <div
               className="form-group"
@@ -309,7 +309,7 @@ export const Match = (props) => {
             </div>
 
             <div className="form-group" style={{ marginTop: "1rem" }}>
-              <input type="submit" name="submit" value="Create Match" />
+              <input type="submit" name="submit" value="Create Fixture" />
             </div>
           </form>
         </div>
