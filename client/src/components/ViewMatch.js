@@ -2,7 +2,7 @@ import MatchTable from "./MatchTable";
 // import { EditTournamet,CreateTournament } from "./CreateTournament";
 import EditMatch from "./EditMatch";
 import { useState, useEffect, useRef } from "react";
-import { Match } from "./Match";
+import { Match } from "./CreateMatch";
 const ViewMatch = () => {
   //fetching scorer id from the localstorage
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -28,21 +28,18 @@ const ViewMatch = () => {
 
   //fetch table data
   const fetchData = async () => {
-    const response = await fetch(`${host}/api/cricscore/match/getmatches`, {
-      method: "POST",
+    const response = await fetch(`${host}/api/cricscore/match/${scorerId}`, {
+      method: "GET",
       credentials: "include",
       headers: {
         Accept: "*/*",
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        scorer_id: `${scorerId}`,
-      }),
+      }
     });
 
     const result = await response.json();
     setData(result.data);
-    console.log("Result" + result.data);
+   
   };
 
   const handleClose = () => {

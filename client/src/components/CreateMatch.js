@@ -71,7 +71,7 @@ export const Match = (props) => {
     } else {
       console.log("Tournament data  not get from backend:");
     }
-    console.log(result.data);
+    // console.log(result.data);
   };
   const fetchTeam = async () => {
     const response = await fetch(
@@ -118,16 +118,16 @@ export const Match = (props) => {
     const venue = selectedVenue?.value || "";
 
     // Submit the form
+    const host = process.env.REACT_APP_HOST_URI;
 
-    const response = await fetch(
-      "http://localhost:5000/api/cricscore/match/creatematch",
-      {
+    const response = await fetch(`${host}/api/cricscore/match/`,{
         method: "POST",
         credentials: "include",
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json",
         },
+        
         body: JSON.stringify({
           tournament_name: `${tournament_name}`,
           tournament_id: `${tournament_id1}`,

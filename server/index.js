@@ -7,7 +7,7 @@ const scorerRoute = require("./routes/scorerRoute.js");
 const tournamentRoute = require("./routes/tournamentRoute.js");
 const cookieParser = require("cookie-parser");
 const checkAuthCookie = require("./middlewares/authenticate.js");
-const Match=require('./routes/Match.js');
+const matchRoute=require('./routes/matchRoute.js');
 
 const app = express();
 
@@ -33,14 +33,8 @@ app.use("/api/cricscore/scorer", scorerRoute);
 //protected route-requires auth cookie
 app.use(checkAuthCookie("token"));
 app.use("/api/cricscore/tournament", tournamentRoute);
+app.use("/api/cricscore/match",  matchRoute);
 
-
-// app.use("/api/cricscore/match", matchRoute);
-
-//routes for login and signup and tournament
-// app.use("/auth/", Authentication);
-app.use("/api/cricscore/match",  Match);
-// app.use('api/notes', require('./routes/notes'));
 
 //routes for viewer
 app.use("/api/cricscore/", homepageRoute);
