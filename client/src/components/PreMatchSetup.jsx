@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const PreMatchSetup = async () => {
-  //get tournament id from previous page
+const PreMatchSetup = () => {
   const location = useLocation();
   const [teams, setTeams] = useState(null);
+  const [matchId, setMatchId] = useState(null);
 
   useEffect(() => {
-    const teams = location.state || null;
-    setTeams(teams);
+    const t = location.state || null;
+    setTeams(t.teams);
+    setMatchId(t.matchId);
   }, [location.state]);
 
   useEffect(() => {
     populateSelectTeam();
-  }, []);
+  }, [teams]);
 
   const populateSelectTeam = () => {
     if (teams != null) {
@@ -30,27 +31,40 @@ const PreMatchSetup = async () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const tossWinner = document.getElementById("tosswonby");
-    const decision = document.getElementById("decision");
-    const onfield = document.getElementById("onfield");
-    const third = document.getElementById("third");
-    const tv = document.getElementById("tv");
-    const r = document.getElementById("refree");
+    const tossWinner = document.getElementById("tosswonby").value;
+    const decision = document.getElementById("decision").value;
+    const onfield = document.getElementById("onfield").value;
+    const third = document.getElementById("third").value;
+    const tv = document.getElementById("tv").value;
+    const r = document.getElementById("refree").value;
 
     const host = process.env.REACT_APP_HOST_URI;
 
     const reqOptions = {
-      method: "POST",
+      method: "PUT",
       credentials: "include",
       headers: {
         Accept: "*/*",
-        "Content-Type":"application/json"
-      }
-    }
-  }
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tossWinner: `${tossWinner}`,
+        decision: `${decision}`,
+        onfield: `${onfield}`,
+        third: `${third}`,
+        tv: `${tv}`,
+        r: `${r}`,
+      }),
+    };
 
-  const response = await fetch(`${host}/api/cricscore/`)
-
+    const response = await fetch(
+      `${host}/api/cricscore/match/prematch/${matchId}`,
+      reqOptions
+    );
+    const data = await response.json();
+    alert(data.message);
+    //now go to scoring interface
+  };
 
   return (
     <div className="tournament-container">
@@ -89,6 +103,10 @@ const PreMatchSetup = async () => {
           <div className="form-group">
             <label htmlFor="refree">Match Refree</label>
             <input type="text" id="refree" />
+          </div>
+
+          <div className="form-group">
+            <input type="submit" className="submit" value="Save" />
           </div>
         </form>
       </div>

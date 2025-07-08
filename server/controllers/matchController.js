@@ -1,7 +1,6 @@
 const Match = require("../models/Match");
 
 async function handleCreateMatch(req, res) {
-  console.log(req.body);
   try {
     const { match_time, match_date } = req.body;
     const matchExists = await Match.findOne({ match_time, match_date });
@@ -86,9 +85,40 @@ async function handleDeleteMatch(req, res) {
   }
 }
 
+async function handlePreMatch(req, res) {
+  console.log(req.body);
+
+  try {
+    const matchId = req.params.matchId;
+    const match = await Match.findById(matchId);
+    if (!match) {
+      return res.status(422).json({ message: "Match not found" });
+    }
+    await Match.findByIdAndUpdate(
+      matchId,
+      {
+        toss: { wonBy: req.body.tossWinner, decision: req.body.decision },
+        umpires: {
+          onField: req.body.onfield.split(","),
+          third: req.body.third,
+          tv: req.body.tv,
+        },
+        matchRefree: req.body.r,
+      }
+    );
+    return res.status(200).json({ message: "Prematch updated successfully" });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong while updating prematch data" });
+  }
+}
+
 module.exports = {
   handleCreateMatch,
   handleGetMatches,
   handleUpdateMatch,
   handleDeleteMatch,
+  handlePreMatch,
 };

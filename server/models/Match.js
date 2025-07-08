@@ -43,7 +43,7 @@ const MatchSchema = new Schema(
       required: true,
     },
     toss: {
-      wonBy: Schema.Types.ObjectId,
+      wonBy: String,
       decision: String,
     },
     matchState: {
