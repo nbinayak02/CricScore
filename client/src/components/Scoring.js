@@ -2,6 +2,7 @@ import { useState,useEffect, } from "react";
 import'../css/scoring.css';
 import Select from 'react-select';
 import { useLocation,useNavigate } from "react-router-dom";
+import '../css/loading.css';
 export const Scoring=()=>{
 
 
@@ -23,6 +24,8 @@ export const Scoring=()=>{
   const location=useLocation();
  const { match }= location.state || {};
 
+ const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
 
 const teamA_id=match.teamA_id;
 const teamB_id=match.teamB_id;
@@ -34,6 +37,8 @@ const teamB_id=match.teamB_id;
 
   const [TeamA,setTeamA]=useState(null);
   const [TeamB,setTeamB]=useState(null);
+
+
 
 
   // setting the Team na to board if state is present
@@ -62,31 +67,38 @@ const [selectedbowler, setSelectedbowler] = useState(null);
 // ];
 
  const fetchTeamAData = async () => {
+  try{
+
     const response = await fetch(`${host}/api/cricscore/tournament/${teamA_id}/get`, {
       method: "GET",
       credentials: "include",
       headers: {
         Accept: "*/*",
         "Content-Type": "application/json",
-      },
+      }
     });
     
-        const result = await response.json();
- const team=result.data;
+    const result = await response.json();
+    const team=result.data;
     setTeamA(team);
-
-   // 👇 Convert comma-separated squad string to [{value, label}]
-  if (team && team.squad) {
-    const squadArray = team.squad.split(',').map(player => player.trim());
-    const battingOptions = squadArray.map(player => ({
-      value: player,
-      label: player,
-    }));
-    setbowlers(battingOptions); // You should have a state for this
+    
+    // 👇 Convert comma-separated squad string to [{value, label}]
+    if (team && team.squad) {
+      const squadArray = team.squad.split(',').map(player => player.trim());
+      const battingOptions = squadArray.map(player => ({
+        value: player,
+        label: player,
+      }));
+      setbowlers(battingOptions); // You should have a state for this
+    };
+  }  catch(error){
+    console.log("NO Team id found");
   };
 
 }
  const fetchTeamBData = async () => {
+  try{
+
     const response = await fetch(`${host}/api/cricscore/tournament/${teamB_id}/get`, {
       method: "GET",
       credentials: "include",
@@ -95,41 +107,72 @@ const [selectedbowler, setSelectedbowler] = useState(null);
         "Content-Type": "application/json",
       },
     });
-
+    
     const result = await response.json();
     const team=result.data;
     setTeamB(team);
-
-   // 👇 Convert comma-separated squad string to [{value, label}]
-  if (team && team.squad) {
-    const squadArray = team.squad.split(',').map(player => player.trim());
-    const battingOptions = squadArray.map(player => ({
+    
+    
+    // 👇 Convert comma-separated squad string to [{value, label}]
+    if (team && team.squad) {
+      const squadArray = team.squad.split(',').map(player => player.trim());
+      const battingOptions = squadArray.map(player => ({
       value: player,
       label: player,
     }));
     setBattingoptions(battingOptions); // You should have a state for this
   };
 }
+  catch(error){
+    console.log("NO Team id found");
+  }
+}
 
- useEffect(() => {
- fetchTeamAData();
- fetchTeamBData();
- }, [match]);
- 
+useEffect(() => {
+  const fetchData = async () => {
+    setLoading(true);
+       setProgress(20); // Start slow
+
+    const interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+    try {
+      await Promise.all([fetchTeamAData(), fetchTeamBData()]);
+      setProgress(100);
+    } catch (error) {
+      console.error("Error loading data", error);
+    } finally {
+          setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400); // Let the bar stay full for a bit
+    }
+  };
+
+  fetchData();
+}, [match]);
+
 
 
   return (
+    
+    <>
+{loading && (
+  <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>
+)}
 
-<>
 
 <div className="login" style={{height: '93vh'}}>
         <div className="form-container">
           <h1 style={{alignItems:'center',textAlign:'center',marginBottom:'3rem',marginTop:'1.5rem'}}> {match ? match.tournament_name : " "}</h1>
             <div id="scoring_head" className="scoring_head">
             <h2 style={{textAlign:'start',color:'#212529'}}>Scoring</h2>
-             <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+             <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 2fr',justifyContent:'center',alignItems:'center',gap:"0.5rem"}}>
                 <span>{ TeamA? TeamA.teamName : 'Team A' }</span>
-                <span style={{marginLeft:'0.3rem',marginRight:'0.3rem'}}> vs </span>
+                <span> vs </span>
                 <span>{TeamB ? TeamB.teamName :'Team B'}</span>
              </div>
             </div>

@@ -6,6 +6,9 @@ import MyTimePicker from "./TimePicker";
 export const Match = (props) => {
   const host = "http://localhost:5000";
 
+       const [loading, setLoading] = useState(true);
+ const [progress, setProgress] = useState(0);
+
   const [TeamA, setTeamA] = useState(null);
   const [TeamB, setTeamB] = useState(null);
 
@@ -32,7 +35,21 @@ export const Match = (props) => {
   const [selectedVenue, setSelectedVenue] = useState(null);
 
   useEffect(() => {
+                      setLoading(true);
+       setProgress(20); // Start slow
     fetchTournament();
+                    const  interval = setInterval(() => {
+      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    }, 200); // Fake loading forward
+
+        setProgress(100);
+
+                
+              setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+        clearInterval(interval);
+      }, 400); 
   }, []); // only once on mount
 
   useEffect(() => {
@@ -176,6 +193,11 @@ export const Match = (props) => {
 
   return (
     <>
+            {loading && (
+  <div className="loading-bar-container">
+    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
+  </div>)}
+
       <div className="login" style={{ height: props.isEdit ? "auto" : "98vh" }}>
         <div className="form-container">
           <h2 style={{ textAlign: "center" }}>Create Fixture</h2>
