@@ -10,6 +10,7 @@ import { Match } from "./components/Match.js";
 import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
 import ViewMatch from "./components/ViewMatch.js";
+import OpenAiQuery from "./components/OpenAiQuery.js";
 // import LoadingBar from "react-top-loading-bar"; 
 
  function App (){
@@ -26,6 +27,7 @@ import ViewMatch from "./components/ViewMatch.js";
   return (
     <>
       <Navbar />
+    <OpenAiQuery />
       <Routes>
         <Route path="/" element={<Welcome />}  />
         <Route path="/login" element={<Login />} />
