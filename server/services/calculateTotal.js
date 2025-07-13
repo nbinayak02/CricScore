@@ -1,0 +1,2 @@
+//calculates or increments runs according to the new run, ball data.
+//we should not calculate total after each ball, we should calculate total and place somewhere like on another mongodb schema and increment that by matchid. if undo has been done, then we should calculate once and store there and again increment accord. to new ball data.
