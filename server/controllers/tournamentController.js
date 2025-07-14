@@ -1,7 +1,7 @@
 const Team = require("../models/Teams");
 const Tournament = require("../models/Tournment");
-const Teams=require('../models/Teams');
-  const mongoose = require("mongoose");
+const Teams = require("../models/Teams");
+const mongoose = require("mongoose");
 const { response } = require("express");
 
 async function handleCreateTournament(req, res) {
@@ -28,21 +28,27 @@ async function handleCreateTournament(req, res) {
 async function handleUpdateTournament(req, res) {
   const tournamentUpdate = req.body;
   try {
-    const tournament=await Tournament.findByIdAndUpdate(tournamentUpdate._id, { $set: req.body })  // Update data from request body
+    const tournament = await Tournament.findByIdAndUpdate(
+      tournamentUpdate._id,
+      { $set: req.body }
+    ); // Update data from request body
 
-    if(!tournament){
-   return res.status(404).json({ error: "Tournament not found" });
+    if (!tournament) {
+      return res.status(404).json({ error: "Tournament not found" });
     }
 
-    return  res.json({ success: true, data:tournament, message: "Tournament Updated Successfully" });
+    return res.json({
+      success: true,
+      data: tournament,
+      message: "Tournament Updated Successfully",
+    });
   } catch (error) {
     console.error("Update error:", error);
     res.status(500).json({ error: "Server error" });
   }
-};
+}
 async function handleDeleteTournament(req, res) {
-
-const { _id } = req.body;
+  const { _id } = req.body;
 
   // Validate
   if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -54,16 +60,19 @@ const { _id } = req.body;
 
     const tournament = await Tournament.findByIdAndDelete(objectId);
 
-    if(!tournament){
-   return res.status(404).json({ error: "Tournament not found" });
+    if (!tournament) {
+      return res.status(404).json({ error: "Tournament not found" });
     }
 
-    return  res.json({ success: true, message: "Tournament Deleted Successfully" });
+    return res.json({
+      success: true,
+      message: "Tournament Deleted Successfully",
+    });
   } catch (error) {
     console.error(" Tournament Delete error:", error);
     res.status(500).json({ error: "Server error" });
   }
-};
+}
 
 async function handleShowAllTournament(req, res) {
   const scorerId = req.scorer._id;
@@ -108,13 +117,12 @@ async function handleGetTourById(req, res) {
 }
 
 async function handleCreateTeam(req, res) {
-  const { teamName, squad, teamCoach } = req.body;
+  const { teamName, teamCoach } = req.body;
   const tourId = req.params.id;
 
   try {
     await Team.create({
       teamName,
-      squad,
       teamCoach,
       tournament: tourId,
       createdBy: req.scorer._id,
@@ -126,55 +134,54 @@ async function handleCreateTeam(req, res) {
 }
 
 async function handleGetAllTeams(req, res) {
-
   const tourId = req.params.id;
 
-  try{
-    const teams = await Team.find({tournament: tourId});
+  try {
+    const teams = await Team.find({ tournament: tourId });
     return res.status(200).json({ message: "Found", data: teams });
-    
-  } catch(error){
+  } catch (error) {
     return res.status(422).json({ message: error });
   }
-
 }
 
-async function handleDeleteTeam(req,res){
-const id=req.params.id;
+async function handleDeleteTeam(req, res) {
+  const id = req.params.id;
 
-
- // Validate
+  // Validate
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(422).json({ error: "Invalid Team ID format" });
   }
 
-  try{
-
+  try {
     const TeamId = new mongoose.Types.ObjectId(id);
-    
-    const team=await Teams.findByIdAndDelete(TeamId);
-    if(!team){
-      return res.status(404).json({error:"Team Not Found"});
+
+    const team = await Teams.findByIdAndDelete(TeamId);
+    if (!team) {
+      return res.status(404).json({ error: "Team Not Found" });
     }
 
-    return res.json({ message: "Team deleted successfully" });  }
-catch (error) {
+    return res.json({ message: "Team deleted successfully" });
+  } catch (error) {
     console.error("Team Delete error:", error);
     res.status(500).json({ error: "Server error" });
   }
-
 }
-async function handleUpdateTeam(req,res){
-
-    const teamUpdate = req.body;
+async function handleUpdateTeam(req, res) {
+  const teamUpdate = req.body;
   try {
-    const team=await Teams.findByIdAndUpdate(teamUpdate._id, { $set: req.body })  // Update data from request body
+    const team = await Teams.findByIdAndUpdate(teamUpdate._id, {
+      $set: req.body,
+    }); // Update data from request body
 
-    if(!team){
-   return res.status(404).json({ error: "Team not found" });
+    if (!team) {
+      return res.status(404).json({ error: "Team not found" });
     }
 
-    return  res.json({ success: true, data:team, message: "Team Updated Successfully" });
+    return res.json({
+      success: true,
+      data: team,
+      message: "Team Updated Successfully",
+    });
   } catch (error) {
     console.error("Team Update error:", error);
     res.status(500).json({ error: "Server error" });
@@ -187,17 +194,18 @@ async function handleGetTeamById(req, res) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "Invalid team ID format." });
   }
-  
+
   try {
-    const teamid= new mongoose.Types.ObjectId(id);
-    
+    const teamid = new mongoose.Types.ObjectId(id);
+
     const team = await Team.findById(teamid);
     if (!team) {
       return res.status(404).json({ error: "Team not found." });
     }
 
-    return res.status(200).json({ data: team, message: "Team fetch successful." });
-
+    return res
+      .status(200)
+      .json({ data: team, message: "Team fetch successful." });
   } catch (error) {
     console.error("Error fetching team:", error);
     return res.status(500).json({ error: "Internal server error." });

@@ -11,6 +11,7 @@ import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
 import ViewMatch from "./components/ViewMatch.js";
 import PreMatchSetup from "./components/PreMatchSetup.jsx";
+import Players from "./pages/players.jsx";
 
 
  function App (){
@@ -27,6 +28,7 @@ import PreMatchSetup from "./components/PreMatchSetup.jsx";
         <Route path="/viewmatch" element={<ViewMatch />}/>
         <Route path="/scoring" element={<Scoring />} />
         <Route path="/tournament/:id" element={<SetupTournament />}/>
+        <Route path="/players/:tourId/:teamId" element={<Players />}/>
         <Route path="/prematch" element={<PreMatchSetup />} />
       </Routes>
       

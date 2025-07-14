@@ -11,7 +11,7 @@ export const CreateTeam = (props) => {
     const squad = document.getElementById("squad").value;
     const teamCoach = document.getElementById("teamCoach").value;
 
-    if(teamName === "" || squad === "" || teamCoach === ""){
+    if(teamName === "" || teamCoach === ""){
       alert("All fields are required");
       return false;
     }
@@ -25,7 +25,6 @@ export const CreateTeam = (props) => {
       },
       body: JSON.stringify({
         teamName: `${teamName}`,
-        squad: `${squad}`,
         teamCoach: `${teamCoach}`
       }),
     });
@@ -44,14 +43,6 @@ export const CreateTeam = (props) => {
               <input type="text" id="teamName" placeholder="Team Name" />
             </div>
             <div className="form-group">
-              <textarea
-                id="squad"
-                placeholder="Enter Player's name - seperated by comma(,)"
-                cols={50}
-                rows={5}
-              ></textarea>
-            </div>
-            <div className="form-group">
               <input type="text" id="teamCoach" placeholder="Team Coach" />
             </div>
 
@@ -64,9 +55,9 @@ export const CreateTeam = (props) => {
     </>
   );
 };
+
 export const EditTeam = (props) => {
   const [teamName,setTeamName]=useState(props.EditTeam.teamName);
-  const [squad,setSquad]=useState(props.EditTeam.squad);
   const [teamCoach,setteamCoach]=useState(props.EditTeam.teamCoach);
   const host = "http://localhost:5000";
   // const tourId = props.id;
@@ -81,10 +72,9 @@ const handleModalClose = () => {
     e.preventDefault();
 
     var team_Name =teamName;
-    const _squad = squad;
     const team_Coach = teamCoach;
 
-    if(teamName === "" || squad === "" || teamCoach === ""){
+    if(teamName === "" || teamCoach === ""){
       alert("All fields are required");
       return false;
     }
@@ -99,7 +89,6 @@ const handleModalClose = () => {
       body: JSON.stringify({
         _id:`${props.id}`,
         teamName: `${team_Name}`,
-        squad: `${_squad}`,
         teamCoach: `${team_Coach}`
       }),
     });
@@ -116,16 +105,6 @@ const handleModalClose = () => {
           <form onSubmit={handleEditSubmit}>
             <div className="form-group">
               <input type="text" id="teamName" placeholder="Team Name" value={teamName} onChange={(e)=>{setTeamName(e.target.value)}} />
-            </div>
-            <div className="form-group">
-              <textarea
-              value={squad}
-                id="squad"
-                placeholder="Enter Player's name - seperated by comma(,)"
-                onChange={(e)=>{setSquad(e.target.value)}}
-                cols={50}
-                rows={5}
-              ></textarea>
             </div>
             <div className="form-group">
               <input type="text" id="teamCoach" placeholder="Team Coach" value={teamCoach} onChange={(e)=>{setteamCoach(e.target.value)}} />

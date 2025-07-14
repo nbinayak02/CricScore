@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const TeamTable = (props) => {
+  const { id } = useParams();
   const host = "http://localhost:5000";
   const navigate = useNavigate();
 
-
-  const handleEdit=(item)=>{
+  const handleEdit = (item) => {
     props.setEditTeamId(item._id);
     props.setEditTeam(item);
     props.setIsEdit(true);
@@ -13,22 +14,23 @@ const TeamTable = (props) => {
     //to open model on edit click
     props.openModal();
 
-    //invoke the component 
-  }
+    //invoke the component
+  };
 
-  const handleDelete=async(id)=>{
-
-var isConfirm=window.confirm("Are you Sure to Delete?");
-if(isConfirm===true){
-
-const response=await fetch(`${host}/api/cricscore/tournament/${id}/delete`, {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-      });
+  const handleDelete = async (id) => {
+    var isConfirm = window.confirm("Are you Sure to Delete?");
+    if (isConfirm === true) {
+      const response = await fetch(
+        `${host}/api/cricscore/tournament/${id}/delete`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -40,11 +42,8 @@ const response=await fetch(`${host}/api/cricscore/tournament/${id}/delete`, {
     }
   };
 
-
-
-
-  const handleNavigation = (tourId) => {
-    navigate(`/tournament/${tourId}`);
+  const handleNavigation = (teamId) => {
+    navigate(`/players/${id}/${teamId}`);
   };
 
   return (
@@ -52,10 +51,8 @@ const response=await fetch(`${host}/api/cricscore/tournament/${id}/delete`, {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
             <th scope="col">#</th>
             <th scope="col">Team Name</th>
-            <th scope="col">Squad</th>
             <th scope="col">Coach</th>
             <th scope="col" colSpan={3}>
               Action
@@ -67,28 +64,38 @@ const response=await fetch(`${host}/api/cricscore/tournament/${id}/delete`, {
             props.data.map((item, index) => {
               return (
                 <tr key={index + 1}>
-                  <td>{item._id}</td>
                   <td>{index + 1}</td>
                   <td>{item.teamName}</td>
-                  <td>{item.squad}</td>
                   <td>{item.teamCoach}</td>
                   <td>
-                    {/* <button
+                    <button
                       type="button"
                       className="btn btn-primary"
                       onClick={() => handleNavigation(item._id)}
                     >
-                      Setup
-                    </button> */}
-                  </td>
-                  <td>
-                    <button type="button" onClick={()=>{handleEdit(item)}} className="btn btn-success">
-                      Edit
+                      Assign Players
                     </button>
                   </td>
                   <td>
-                    <button type="button" onClick={()=>{handleDelete(item._id)}} className="btn btn-danger">
-                      Delete
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleEdit(item);
+                      }}
+                      className="btn btn-success"
+                    >
+                      Edit Team
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleDelete(item._id);
+                      }}
+                      className="btn btn-danger"
+                    >
+                      Delete Team
                     </button>
                   </td>
                 </tr>

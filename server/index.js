@@ -5,6 +5,7 @@ const connectToMongoose = require("./services/db.js");
 const homepageRoute = require("./routes/homeRoute.js");
 const scorerRoute = require("./routes/scorerRoute.js");
 const tournamentRoute = require("./routes/tournamentRoute.js");
+const playersRoute = require("./routes/playersRoute.js");
 const cookieParser = require("cookie-parser");
 const checkAuthCookie = require("./middlewares/authenticate.js");
 const matchRoute=require('./routes/matchRoute.js');
@@ -33,6 +34,7 @@ app.use("/api/cricscore/scorer", scorerRoute);
 //protected route-requires auth cookie
 app.use(checkAuthCookie("token"));
 app.use("/api/cricscore/tournament", tournamentRoute);
+app.use("/api/cricscore/players", playersRoute);
 app.use("/api/cricscore/match",  matchRoute);
 
 
