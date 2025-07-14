@@ -120,7 +120,7 @@ const ViewMatch = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                {/* if form === true show CreateTournament */}
+                
                 {!isEdit ? (
                   <Match
                     isEdit={true}
