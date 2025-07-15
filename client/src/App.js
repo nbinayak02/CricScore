@@ -6,28 +6,18 @@ import { Login } from "./components/Login.js";
 import { Signup } from "./components/Signup.js";
 import { Welcome } from "./components/welcome.js";
 import { Tournament } from "./components/Tournament.js";
-import { Match } from "./components/Match.js";
+import { Match } from "./components/CreateMatch.js";
 import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
 import ViewMatch from "./components/ViewMatch.js";
-import OpenAiQuery from "./components/OpenAiQuery.js";
+import PreMatchSetup from "./components/PreMatchSetup.jsx";
 // import LoadingBar from "react-top-loading-bar"; 
 
  function App (){
 
-  
-  // loadingBar = useRef(null);
-  //  this.setProgress = (value) => {
-  //   if (loadingBar.current) {
-  //     loadingBar.current.continuousStart(); // Optional: Start animation
-  //     loadingBar.current.setProgress(value); // Set specific value
-  //   }
-  // };
-
   return (
     <>
       <Navbar />
-    <OpenAiQuery />
       <Routes>
         <Route path="/" element={<Welcome />}  />
         <Route path="/login" element={<Login />} />
@@ -37,6 +27,7 @@ import OpenAiQuery from "./components/OpenAiQuery.js";
         <Route path="/viewmatch" element={<ViewMatch />}/>
         <Route path="/scoring" element={<Scoring />} />
         <Route path="/tournament/:id" element={<SetupTournament />}/>
+        <Route path="/prematch" element={<PreMatchSetup />} />
       </Routes>
       
       
