@@ -6,8 +6,11 @@ import { Match } from "./CreateMatch";
 const ViewMatch = () => {
   //fetching scorer id from the localstorage
   const userData = JSON.parse(localStorage.getItem("user"));
-  const scorerId =
-    userData.id || userData.scorer?.id || userData.user?.scorer?.id;
+  console.log("Userdata:"+userData);
+
+  const scorerId =userData.id || userData.scorer?.id || userData.user?.scorer?.id;
+
+  console.log("The id is:"+scorerId);
 
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);

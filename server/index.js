@@ -8,7 +8,8 @@ const tournamentRoute = require("./routes/tournamentRoute.js");
 const playersRoute = require("./routes/playersRoute.js");
 const cookieParser = require("cookie-parser");
 const checkAuthCookie = require("./middlewares/authenticate.js");
-const matchRoute=require('./routes/matchRoute.js');
+const Match=require('./routes/Match.js');
+const matchRoute =require('./routes/matchRoute.js');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
+// app.use("/api/chatgpt",OpenAI);
 //public route - doesn't require auth cookie
 app.use("/api/cricscore/scorer", scorerRoute);
 

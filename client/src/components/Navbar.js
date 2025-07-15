@@ -96,10 +96,10 @@ export const Navbar = () => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    location.pathname === "/profile" ? "active" : ""
+                    location.pathname === "/scoring" ? "active" : ""
                   }`}
-                  onClick={() => handleNavClick("/profile")}
-                  to="/profile"
+                  onClick={() => handleNavClick("/scoring")}
+                  to="/scoring"
                 >
                   Profile
                 </Link>

@@ -6,6 +6,8 @@ const PreMatchSetup = () => {
   const [teams, setTeams] = useState(null);
   const [matchId, setMatchId] = useState(null);
 
+  const host = "http://localhost:5000";
+
   useEffect(() => {
     const t = location.state || null;
     setTeams(t.teams);
@@ -38,7 +40,7 @@ const PreMatchSetup = () => {
     const tv = document.getElementById("tv").value;
     const r = document.getElementById("refree").value;
 
-    const host = process.env.REACT_APP_HOST_URI;
+    // const host = process.env.REACT_APP_HOST_URI;
 
     const reqOptions = {
       method: "PUT",

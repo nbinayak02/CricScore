@@ -134,7 +134,7 @@ export const Match = (props) => {
     const venue = selectedVenue?.value || "";
 
     // Submit the form
-    const host = process.env.REACT_APP_HOST_URI;
+    // const host = process.env.REACT_APP_HOST_URI;
 
     const response = await fetch(`${host}/api/cricscore/match/`, {
       method: "POST",

@@ -16,7 +16,7 @@
 }
 
 .form-container {
-    width: 48vw;
+    width: auto;
     height: fit-content;
     background-color: #cfdeef;
     border-radius: 0.5rem;
@@ -147,6 +147,7 @@
 
 #undo_ball {
 
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,6 +181,19 @@
     border: none;
 
 }
+#over_ball{
+    display: grid;
+    align-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#play_state{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 2fr 1fr;
+}
 
 #end_inning {
 
@@ -209,6 +223,51 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
 
     background: linear-gradient(270deg, #454242, #4A4A4A, #454242);
+    /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
+    background-size: 600% 600%;
+    animation: gradientShift 2.5s ease infinite;
+    border: none;
+
+}
+#resume_inning {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40;
+    background: linear-gradient(45deg, #A3DC9A, #16A34A);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    /* background: linear-gradient(45deg, #4A4A4A, #2E2E2E, #4A4A4A);
+     */
+    /* Bootstrap red shades */
+    /* Bootstrap success green shades */
+    
+    /* border: none; */
+    /* color: white; */
+    transition: background-position 0.5s ease, box-shadow 0.3s ease;
+    background-size: 200% 200%;
+    background-position: left center;
+
+
+    animation-play-state: paused;
+    /* pause animation on hover */
+    /* box-shadow: 0 4px 15px #3875c0; */
+}
+
+#resume_inning:hover {
+
+    background-position: right center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+
+       background: linear-gradient(270deg, #64b058, #1b9748);
+
     /* background: linear-gradient(270deg, #DC2626, #ab1414, #DC2626); */
     background-size: 600% 600%;
     animation: gradientShift 2.5s ease infinite;
@@ -403,3 +462,117 @@ footer {
     /* margin-bottom: 7px; */
     align-items: center !important;
 }
+
+.current_over{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    color: #454242;
+}
+
+#center_scoring table tr{
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+}
+
+  .section-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .header-table {
+        margin-top: 1rem;
+    justify-content: center;
+    align-items: end;
+    display: grid;
+    grid-template-columns: 80px repeat(13, 1fr) repeat(1, 1fr) repeat(3, 1fr);
+    gap: 8px;
+    text-align: center;
+    margin-left: 19px;
+    font-size: 0.85rem;
+    }
+    #score_summary{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-content: center;
+    }
+    #summary_right{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .header-cell {
+      background-color: #e1e1e1;
+      border-radius: 4px;
+      padding: 4px;
+      font-weight: bold;
+    }
+
+    .header-cell[colspan="3"] {
+      grid-column: span 3;
+    }
+
+    .header-cell[colspan="2"] {
+      grid-column: span 2;
+    }
+
+    .scoring-panel {
+      display: grid;
+      grid-template-columns: 80px repeat(17, 1fr);
+      gap: 6px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .label {
+      background-color: #e1e1e1;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      padding: 8px 4px;
+      border-radius: 4px;
+    }
+
+    .scoring-button, #wicket {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 6px;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .scoring-button:hover {
+      background-color: #d4ebff;
+    }
+
+    @media (max-width: 768px) {
+      .header-table {
+        font-size: 0.75rem;
+        grid-template-columns: 80px repeat(17, minmax(30px, 1fr));
+      }
+
+      .scoring-panel {
+        grid-template-columns: 80px repeat(17, minmax(30px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.2rem;
+      }
+    }
