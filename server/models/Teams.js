@@ -6,10 +6,6 @@ const TeamSchema = new Schema(
       type: String,
       required: true,
     },
-    squad: {
-      type: String,
-      required: true,
-    },
     teamCoach: {
       type: String,
     },
