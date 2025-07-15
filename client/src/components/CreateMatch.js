@@ -6,8 +6,8 @@ import MyTimePicker from "./TimePicker";
 export const Match = (props) => {
   const host = "http://localhost:5000";
 
-       const [loading, setLoading] = useState(true);
- const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   const [TeamA, setTeamA] = useState(null);
   const [TeamB, setTeamB] = useState(null);
@@ -35,21 +35,20 @@ export const Match = (props) => {
   const [selectedVenue, setSelectedVenue] = useState(null);
 
   useEffect(() => {
-                      setLoading(true);
-       setProgress(20); // Start slow
+    setLoading(true);
+    setProgress(20); // Start slow
     fetchTournament();
-                    const  interval = setInterval(() => {
-      setProgress(prev => (prev < 90 ? prev + 10 : prev));
+    const interval = setInterval(() => {
+      setProgress((prev) => (prev < 90 ? prev + 10 : prev));
     }, 200); // Fake loading forward
 
-        setProgress(100);
+    setProgress(100);
 
-                
-              setTimeout(() => {
-        setLoading(false);
-        setProgress(0);
-        clearInterval(interval);
-      }, 400); 
+    setTimeout(() => {
+      setLoading(false);
+      setProgress(0);
+      clearInterval(interval);
+    }, 400);
   }, []); // only once on mount
 
   useEffect(() => {
@@ -137,27 +136,26 @@ export const Match = (props) => {
     // Submit the form
     // const host = process.env.REACT_APP_HOST_URI;
 
-    const response = await fetch(`${host}/api/cricscore/match/`,{
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-        
-        body: JSON.stringify({
-          tournament_name: `${tournament_name}`,
-          tournament_id: `${tournament_id1}`,
-          teamA: `${teamA}`,
-          teamB: `${teamB}`,
-          teamA_id: `${teamA_id}`,
-          teamB_id: `${teamB_id}`,
-          match_date: `${match_date}`,
-          match_time: `${match_time}`,
-          venue: `${venue}`,
-        }),
-      }
-    );
+    const response = await fetch(`${host}/api/cricscore/match/`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        tournament_name: `${tournament_name}`,
+        tournament_id: `${tournament_id1}`,
+        teamA: `${teamA}`,
+        teamB: `${teamB}`,
+        teamA_id: `${teamA_id}`,
+        teamB_id: `${teamB_id}`,
+        match_date: `${match_date}`,
+        match_time: `${match_time}`,
+        venue: `${venue}`,
+      }),
+    });
     if (response.ok) {
       const data = await response.json();
 
@@ -193,10 +191,14 @@ export const Match = (props) => {
 
   return (
     <>
-            {loading && (
-  <div className="loading-bar-container">
-    <div className="loading-bar-progress" style={{ width: `${progress}%` }}></div>
-  </div>)}
+      {loading && (
+        <div className="loading-bar-container">
+          <div
+            className="loading-bar-progress"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      )}
 
       <div className="login" style={{ height: props.isEdit ? "auto" : "98vh" }}>
         <div className="form-container">
