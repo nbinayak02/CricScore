@@ -36,8 +36,15 @@ app.use("/api/cricscore/scorer", scorerRoute);
 //protected route-requires auth cookie
 app.use(checkAuthCookie("token"));
 app.use("/api/cricscore/tournament", tournamentRoute);
+
+
+
+// app.use("/api/cricscore/match", matchRoute);
+app.use("/api/cricscore/match", matchRoute);
+
 app.use("/api/cricscore/players", playersRoute);
 app.use("/api/cricscore/match",  matchRoute);
+
 
 
 //routes for viewer

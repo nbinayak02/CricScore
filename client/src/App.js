@@ -11,7 +11,10 @@ import { Scoring } from "./components/Scoring.js";
 import SetupTournament from "./components/SetupTournament.js"
 import ViewMatch from "./components/ViewMatch.js";
 import PreMatchSetup from "./components/PreMatchSetup.jsx";
+
+
 import Players from "./pages/players.jsx";
+
 
 // import LoadingBar from "react-top-loading-bar"; 
 
